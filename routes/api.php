@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::prefix('judges')->namespace('Judges')->middleware(ApiAuth::class)->group(function () {
         Route::get('getCurrentSinger', [CommonController::class, 'getCurrentSinger']);
+        Route::get('getCurrentSong', [CommonController::class, 'getCurrentSong']);
         Route::post('submitScore', [JudgesController::class, 'submitScore']);
     });
     Route::prefix('guests')->namespace('Guests')->middleware(ApiAuth::class)->group(function () {
         Route::get('getCurrentSinger', [CommonController::class, 'getCurrentSinger']);
-        Route::post('submitScore', [GuestsController::class, 'submitScore']);
+        Route::get('getCurrentSong', [CommonController::class, 'getCurrentSong']);
+        Route::post('submitVote', [GuestsController::class, 'submitVote']);
     });
     Route::prefix('admin')->namespace('Admin')->middleware(AdminAuth::class)->group(function () {
         Route::post('clearSingers', [CommonController::class, 'clearSingers']);
@@ -28,9 +30,14 @@ Route::prefix('v1')->group(function () {
         Route::get('getSongs', [CommonController::class, 'getSongs']);
         Route::post('setCurrentSong', [CommonController::class, 'setCurrentSong']);
         Route::get('getCurrentSong', [CommonController::class, 'getCurrentSong']);
+        Route::post('clearTeams', [CommonController::class, 'clearTeams']);
+        Route::post('addTeams', [CommonController::class, 'addTeams']);
+        Route::get('getTeams', [CommonController::class, 'getTeams']);
+
         Route::get('collectScore', [AdminController::class, 'collectScore']);
+        Route::get('collectVotes', [AdminController::class, 'collectVotes']);
     });
-    Route::fallback(function () {
+    Route::any('{any}', function(){
         return response()->json(['code' => 404, 'message' => 'invalid endpoint'], 404);
-    });
+    })->where('any', '.*');
 });

@@ -46,6 +46,8 @@ abstract class BasicController
     const KEY_CURRENT_SONG = 'current_song';
     const KEY_SONGS = 'songs';
     const PREFIX_SONG = 'song_';
+    const KEY_TEAMS = 'teams';
+    const PREFIX_TEAM = 'team_';
     const SCORE_ITEMS = [
         'A' => 0.3, // 音准
         'B' => 0.2, // 音色
@@ -57,23 +59,23 @@ abstract class BasicController
     // takes and returns a SongData object
     function calculateTotalScore(array $song_data): array
     {
-        $total_score = 0;
+        $final_score = 0;
         $scores = [];
         foreach ($song_data['scores'] as $score) {
-            $final_score = 0;
+            $total_score = 0;
             foreach ($score['data'] as $item) {
                 if (isset(self::SCORE_ITEMS[$item['item']])) {
-                    $final_score += $item['score'] * self::SCORE_ITEMS[$item['item']];
+                    $total_score += $item['score'] * self::SCORE_ITEMS[$item['item']];
                 } else {
                     return $song_data;
                 }
             }
-            $score['final_score'] = $final_score;
+            $score['total_score'] = $total_score;
             $scores[] = $score;
-            $total_score += $final_score;
+            $final_score += $total_score;
         }
         $song_data['scores'] = $scores;
-        $song_data['total_score'] = $total_score / count($song_data['scores']);
+        $song_data['final_score'] = $final_score / count($song_data['scores']);
         return $song_data;
     }
 }

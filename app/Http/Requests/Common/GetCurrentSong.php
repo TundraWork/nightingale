@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Common;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BasicRequest;
 
-class GetCurrentSong extends FormRequest
+class GetCurrentSong extends BasicRequest
 {
     /**
      * Determine if the user is authorized to make this request.

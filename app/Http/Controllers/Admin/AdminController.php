@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BasicController;
 use App\Http\Requests\Admin\CollectScore;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\CollectVotes;
 use Illuminate\Support\Facades\Redis;
 
 class AdminController extends BasicController
@@ -28,5 +28,25 @@ class AdminController extends BasicController
             return response()->json(['code' => 404, 'message' => 'Song not found'], 404);
         }
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $song_data]);
+    }
+
+    function collectVotes(CollectVotes $request)
+    {
+        $teams = Redis::hgetall(self::KEY_TEAMS);
+        $data = [];
+        foreach ($teams as $id => $name) {
+            $team_data = Redis::get(self::PREFIX_TEAM . $id);
+            if (!$team_data) {
+                continue;
+            }
+            $team_data = json_decode($team_data, true);
+            $data[] = [
+                'id' => $id,
+                'name' => $name,
+                'votes' => $team_data['votes'],
+                'total_votes' => $team_data['total_votes'],
+            ];
+        }
+        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
     }
 }

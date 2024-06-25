@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Judges;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BasicRequest;
 
-class SubmitScore extends FormRequest
+class SubmitScore extends BasicRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -94,8 +94,8 @@ class CommonController extends BasicController
 
     function getSongs(GetSongs $request)
     {
-        $singers = Redis::hgetall(self::KEY_SONGS);
-        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $singers]);
+        $songs = Redis::hgetall(self::KEY_SONGS);
+        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $songs]);
     }
 
     function setCurrentSong(SetCurrentSong $request)
@@ -119,5 +119,38 @@ class CommonController extends BasicController
             return response()->json(['code' => 500, 'message' => 'Song not found'], 500);
         }
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => ['id' => $id, 'name' => $name]]);
+    }
+
+    function clearTeams()
+    {
+        foreach (Redis::hkeys(self::KEY_TEAMS) as $id) {
+            Redis::del(self::PREFIX_TEAM . $id);
+        }
+        Redis::del(self::KEY_TEAMS);
+        return response()->json(['code' => 200, 'message' => 'OK']);
+    }
+
+    function addTeams(AddSongs $request)
+    {
+        $names = $request->input('names');
+        $data = [];
+        foreach ($names as $name) {
+            $id = uniqid();
+            Redis::hset(self::KEY_TEAMS, $id, $name);
+            $team_data = [
+                'name' => $name,
+                'votes' => [],
+                'total_votes' => 0,
+            ];
+            Redis::set(self::PREFIX_TEAM . $id, json_encode($team_data));
+            $data[] = ['id' => $id, 'name' => $name];
+        }
+        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
+    }
+
+    function getTeams(GetSongs $request)
+    {
+        $teams = Redis::hgetall(self::KEY_TEAMS);
+        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $teams]);
     }
 }

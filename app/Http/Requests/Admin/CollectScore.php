@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BasicRequest;
 
-class CollectScore extends FormRequest
+class CollectScore extends BasicRequest
 {
     /**
      * Determine if the user is authorized to make this request.
