@@ -31,7 +31,7 @@ class JudgesController extends BasicController
             $song_data = [
                 'song' => $song_id,
                 'scores' => [],
-                'total_score' => 0,
+                'final_score' => 0,
             ];
         }
         foreach ($song_data['scores'] as $judge_score) {
@@ -46,7 +46,7 @@ class JudgesController extends BasicController
         $scores_data = [
             'judge' => $judge_name,
             'data' => $items_data,
-            'final_score' => 0,
+            'total_score' => 0,
         ];
         $song_data['scores'][$song_index] = $scores_data;
         $song_data = $this->calculateTotalScore($song_data);
