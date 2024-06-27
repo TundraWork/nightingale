@@ -34,11 +34,13 @@ class JudgesController extends BasicController
                 'final_score' => 0,
             ];
         }
-        foreach ($song_data['scores'] as $judge_score) {
+        $score_index = 0;
+        foreach ($song_data['scores'] as $score_index => $judge_score) {
             if ($judge_score['judge'] == $judge_name) {
                 return response()->json(['code' => 400, 'message' => 'Score already submitted'], 400);
             }
         }
+        $score_index += 1;
         $items_data = [];
         foreach ($scores as $key => $value) {
             $items_data[] = ['item' => $key, 'score' => $value];
@@ -48,7 +50,7 @@ class JudgesController extends BasicController
             'data' => $items_data,
             'total_score' => 0,
         ];
-        $song_data['scores'][$song_index] = $scores_data;
+        $song_data['scores'][$score_index] = $scores_data;
         $song_data = $this->calculateTotalScore($song_data);
         $singer_data['songs'][$song_index] = $song_data;
         Redis::set(self::PREFIX_SINGER . $singer_id, json_encode($singer_data));
