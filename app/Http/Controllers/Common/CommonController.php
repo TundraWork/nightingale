@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\BasicController;
 use App\Http\Requests\Common\AddSingers;
 use App\Http\Requests\Common\AddSongs;
+use App\Http\Requests\Common\ClearSingers;
+use App\Http\Requests\Common\ClearSongs;
 use App\Http\Requests\Common\GetCurrentSong;
 use App\Http\Requests\Common\GetSingers;
 use App\Http\Requests\Common\GetCurrentSinger;
@@ -16,12 +18,22 @@ use Illuminate\Support\Facades\Redis;
 class CommonController extends BasicController
 {
 
-    function clearSingers()
+    function clearSingers(ClearSingers $request)
     {
-        foreach (Redis::hkeys(self::KEY_SINGERS) as $id) {
-            Redis::del(self::PREFIX_SINGER . $id);
+        if (count($request->input('ids'))) {
+            foreach ($request->input('ids') as $id) {
+                if (!Redis::hexists(self::KEY_SINGERS, $id)) {
+                    return response()->json(['code' => 400, 'message' => 'Singer not found'], 400);
+                }
+                Redis::del(self::PREFIX_SINGER . $id);
+                Redis::hdel(self::KEY_SINGERS, $id);
+            }
+        } else {
+            foreach (Redis::hkeys(self::KEY_SINGERS) as $id) {
+                Redis::del(self::PREFIX_SINGER . $id);
+            }
+            Redis::del(self::KEY_SINGERS);
         }
-        Redis::del(self::KEY_SINGERS);
         return response()->json(['code' => 200, 'message' => 'OK']);
     }
 
@@ -71,12 +83,22 @@ class CommonController extends BasicController
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => ['id' => $id, 'name' => $name]]);
     }
 
-    function clearSongs()
+    function clearSongs(ClearSongs $request)
     {
-        foreach (Redis::hkeys(self::KEY_SONGS) as $id) {
-            Redis::del(self::PREFIX_SONG . $id);
+        if (count($request->input('ids'))) {
+            foreach ($request->input('ids') as $id) {
+                if (!Redis::hexists(self::KEY_SONGS, $id)) {
+                    return response()->json(['code' => 400, 'message' => 'Song not found'], 400);
+                }
+                Redis::del(self::PREFIX_SONG . $id);
+                Redis::hdel(self::KEY_SONGS, $id);
+            }
+        } else {
+            foreach (Redis::hkeys(self::KEY_SONGS) as $id) {
+                Redis::del(self::PREFIX_SONG . $id);
+            }
+            Redis::del(self::KEY_SONGS);
         }
-        Redis::del(self::KEY_SONGS);
         return response()->json(['code' => 200, 'message' => 'OK']);
     }
 
