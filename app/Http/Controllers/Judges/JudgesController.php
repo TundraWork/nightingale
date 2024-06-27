@@ -37,7 +37,8 @@ class JudgesController extends BasicController
         $score_index = 0;
         foreach ($song_data['scores'] as $score_index => $judge_score) {
             if ($judge_score['judge'] == $judge_name) {
-                return response()->json(['code' => 400, 'message' => 'Score already submitted'], 400);
+                $score_index -= 1; // overwrite the existing score
+                break;
             }
         }
         $score_index += 1;

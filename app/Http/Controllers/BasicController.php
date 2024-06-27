@@ -65,12 +65,12 @@ abstract class BasicController
             $total_score = 0;
             foreach ($score['data'] as $item) {
                 if (isset(self::SCORE_ITEMS[$item['item']])) {
-                    $total_score += round($item['score'] * self::SCORE_ITEMS[$item['item']], 2);
+                    $total_score += $item['score'] * self::SCORE_ITEMS[$item['item']];
                 } else {
                     return $song_data;
                 }
             }
-            $score['total_score'] = $total_score;
+            $score['total_score'] = round($total_score, 2);
             $scores[] = $score;
             $final_score += $total_score;
         }
