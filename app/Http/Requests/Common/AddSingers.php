@@ -22,8 +22,8 @@ class AddSingers extends BasicRequest
     public function rules(): array
     {
         return [
-            '*.name' => 'required|string',
-            '*.team_id' => 'required|string',
+            'names' => 'required|array',
+            'names.*' => 'required|string',
         ];
     }
 }

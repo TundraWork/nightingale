@@ -20,7 +20,7 @@ class CommonController extends BasicController
 
     function clearSingers(ClearSingers $request)
     {
-        if ($request->has('ids') && count($request->input('ids'))) {
+        if (count($request->input('ids'))) {
             foreach ($request->input('ids') as $id) {
                 if (!Redis::hexists(self::KEY_SINGERS, $id)) {
                     return response()->json(['code' => 400, 'message' => 'Singer not found'], 400);
@@ -39,45 +39,25 @@ class CommonController extends BasicController
 
     function addSingers(AddSingers $request)
     {
+        $names = $request->input('names');
         $data = [];
-        foreach ($request->all() as $singer) {
-            if (Redis::hexists(self::KEY_SINGERS, $singer['name'])) {
-                return response()->json(['code' => 400, 'message' => 'Singer already exists'], 400);
-            }
-            if (!Redis::hexists(self::KEY_TEAMS, $singer['team_id'])) {
-                return response()->json(['code' => 400, 'message' => 'Team not found'], 400);
-            }
+        foreach ($names as $name) {
             $id = uniqid();
-            Redis::hset(self::KEY_SINGERS, $id, $singer['name']);
+            Redis::hset(self::KEY_SINGERS, $id, $name);
             $singer_data = [
-                'name' => $singer['name'],
-                'team_id' => $singer['team_id'],
+                'name' => $name,
                 'songs' => [],
             ];
             Redis::set(self::PREFIX_SINGER . $id, json_encode($singer_data));
-            $data[] = ['id' => $id, 'name' => $singer['name'], 'team_id' => $singer['team_id']];
+            $data[] = ['id' => $id, 'name' => $name];
         }
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
     }
 
     function getSingers(GetSingers $request)
     {
-        $data = [];
         $singers = Redis::hgetall(self::KEY_SINGERS);
-        foreach ($singers as $id => $singer_data) {
-            $singer_data = Redis::get(self::PREFIX_SINGER . $id);
-            $singer_data = json_decode($singer_data, true);
-            $team = Redis::hget(self::KEY_TEAMS, $singer_data['team_id']);
-            if (!$team) {
-                return response()->json(['code' => 500, 'message' => 'Team not found'], 500);
-            }
-            $data[$id] = [
-                'name' => $singer_data['name'],
-                'team_id' => $singer_data['team_id'],
-                'team' => $team,
-            ];
-        }
-        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
+        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $singers]);
     }
 
     function setCurrentSinger(SetCurrentSinger $request)
@@ -100,21 +80,12 @@ class CommonController extends BasicController
         if (!$name) {
             return response()->json(['code' => 500, 'message' => 'Singer not found'], 500);
         }
-        $singer_data = Redis::get(self::PREFIX_SINGER . $id);
-        if (!$singer_data) {
-            return response()->json(['code' => 500, 'message' => 'Singer data not found'], 500);
-        }
-        $singer_data = json_decode($singer_data, true);
-        $team = Redis::hget(self::KEY_TEAMS, $singer_data['team_id']);
-        if (!$team) {
-            return response()->json(['code' => 500, 'message' => 'Team not found'], 500);
-        }
-        return response()->json(['code' => 200, 'message' => 'OK', 'data' => ['id' => $id, 'name' => $name, 'team_id' => $singer_data['team_id'], 'team' => $team]]);
+        return response()->json(['code' => 200, 'message' => 'OK', 'data' => ['id' => $id, 'name' => $name]]);
     }
 
     function clearSongs(ClearSongs $request)
     {
-        if ($request->has('ids') && count($request->input('ids'))) {
+        if (count($request->input('ids'))) {
             foreach ($request->input('ids') as $id) {
                 if (!Redis::hexists(self::KEY_SONGS, $id)) {
                     return response()->json(['code' => 400, 'message' => 'Song not found'], 400);
