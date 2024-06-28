@@ -19,6 +19,9 @@ class JudgesController extends BasicController
             return response()->json(['code' => 404, 'message' => 'Singer not found'], 404);
         }
         $singer_data = json_decode($singer_data, true);
+        if (!Redis::hexists(self::KEY_SONGS, $song_id)) {
+            return response()->json(['code' => 404, 'message' => 'Song not found'], 404);
+        }
         $song_index = 0;
         foreach ($singer_data['songs'] as $song_index => $song) {
             if ($song['song'] == $song_id) {
