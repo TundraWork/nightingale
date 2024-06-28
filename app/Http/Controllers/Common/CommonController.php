@@ -20,7 +20,7 @@ class CommonController extends BasicController
 
     function clearSingers(ClearSingers $request)
     {
-        if (count($request->input('ids'))) {
+        if ($request->has('ids') && count($request->input('ids'))) {
             foreach ($request->input('ids') as $id) {
                 if (!Redis::hexists(self::KEY_SINGERS, $id)) {
                     return response()->json(['code' => 400, 'message' => 'Singer not found'], 400);
@@ -49,7 +49,7 @@ class CommonController extends BasicController
                 'songs' => [],
             ];
             Redis::set(self::PREFIX_SINGER . $id, json_encode($singer_data));
-            $data[] = ['id' => $id, 'name' => $name];
+            $data[$id] = $name;
         }
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
     }
@@ -85,7 +85,7 @@ class CommonController extends BasicController
 
     function clearSongs(ClearSongs $request)
     {
-        if (count($request->input('ids'))) {
+        if ($request->has('ids') && count($request->input('ids'))) {
             foreach ($request->input('ids') as $id) {
                 if (!Redis::hexists(self::KEY_SONGS, $id)) {
                     return response()->json(['code' => 400, 'message' => 'Song not found'], 400);
@@ -109,7 +109,7 @@ class CommonController extends BasicController
         foreach ($names as $name) {
             $id = uniqid();
             Redis::hset(self::KEY_SONGS, $id, $name);
-            $data[] = ['id' => $id, 'name' => $name];
+            $data[$id] = $name;
         }
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
     }
