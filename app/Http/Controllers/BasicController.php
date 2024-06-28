@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
  *
  * @typedef {Object} SingerData
  * @property {string} name - The singer's name.
+ * @property {string} team_id - The team id the singer belongs to.
  * @property {Array<SongData>} songs - An array of songs the singer performed.
  */
 
@@ -14,14 +15,14 @@ namespace App\Http\Controllers;
  * @typedef {Object} SongData
  * @property {string} song - The name of the song the singer performed.
  * @property {Array<JudgeScore>} scores - An array of scores given by the judges.
- * @property {number} total_score - The total score of the song the singer received from the judges.
+ * @property {number} final_score - The final score of the song the singer received from the judges.
  */
 
 /**
  * @typedef {Object} JudgeScore
  * @property {string} judge - The name of the judge who gave the score.
  * @property {Array<ScoreItem>} data - An array of scores for individual performance items.
- * @property {number} final_score - The final score of the singer given by the judge.
+ * @property {number} total_score - The total score of the singer given by the judge.
  */
 
 /**
