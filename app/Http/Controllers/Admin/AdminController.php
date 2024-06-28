@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BasicController;
 use App\Http\Requests\Admin\CollectScore;
-use App\Http\Requests\Admin\CollectVotes;
 use App\Http\Requests\Admin\SetCurrentStatus;
 use Illuminate\Support\Facades\Redis;
 
@@ -53,7 +52,40 @@ class AdminController extends BasicController
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $song_data]);
     }
 
-    function collectVotes(CollectVotes $request)
+    function collectAllScores()
+    {
+        $singers = Redis::hgetall(self::KEY_SINGERS);
+        $data = [];
+        foreach ($singers as $id => $name) {
+            $singer_data = Redis::get(self::PREFIX_SINGER . $id);
+            if (!$singer_data) {
+                continue;
+            }
+            $singer_data = json_decode($singer_data, true);
+            $game_score = 0;
+            foreach ($singer_data['songs'] as $song) {
+                $game_score += $song['final_score'];
+            }
+            $songs_data = [];
+            foreach ($singer_data['songs'] as $song) {
+                $songs_data[] = [
+                    'id' => $song['song'],
+                    'song' => Redis::hget(self::KEY_SONGS, $song['song']),
+                    'final_score' => $song['final_score'],
+                ];
+            }
+            $data[] = [
+                'id' => $id,
+                'name' => $name,
+                'songs' => $songs_data,
+                'game_score' => $game_score,
+            ];
+        }
+        array_multisort(array_column($data, 'game_score'), SORT_DESC, $data);
+        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
+    }
+
+    function collectAllVotes()
     {
         $teams = Redis::hgetall(self::KEY_TEAMS);
         $data = [];

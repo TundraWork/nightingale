@@ -31,7 +31,8 @@ Route::prefix('v1')->group(function () {
         Route::post('setCurrentStatus', [AdminController::class, 'setCurrentStatus']);
         Route::get('getCurrentStatus', [CommonController::class, 'getCurrentStatus']);
         Route::get('collectScore', [AdminController::class, 'collectScore']);
-        Route::get('collectVotes', [AdminController::class, 'collectVotes']);
+        Route::get('collectAllScores', [AdminController::class, 'collectAllScores']);
+        Route::get('collectAllVotes', [AdminController::class, 'collectAllVotes']);
     });
     Route::any('{any}', function(){
         return response()->json(['code' => 404, 'message' => 'invalid endpoint'], 404);
