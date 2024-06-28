@@ -22,8 +22,8 @@ class ClearSongs extends FormRequest
     public function rules(): array
     {
         return [
-            'ids' => 'optional|array',
-            'ids.*' => 'optional|string',
+            'ids' => 'nullable|array',
+            'ids.*' => 'nullable|string',
         ];
     }
 }
