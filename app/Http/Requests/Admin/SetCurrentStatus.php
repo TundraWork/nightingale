@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Common;
+namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BasicRequest;
 
-class SetCurrentSinger extends BasicRequest
+class SetCurrentStatus extends BasicRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,9 @@ class SetCurrentSinger extends BasicRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|string',
+            'singer_id' => 'nullable|string',
+            'song_id' => 'nullable|string',
+            'team_id' => 'nullable|string',
         ];
     }
 }

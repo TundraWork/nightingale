@@ -5,10 +5,33 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BasicController;
 use App\Http\Requests\Admin\CollectScore;
 use App\Http\Requests\Admin\CollectVotes;
+use App\Http\Requests\Admin\SetCurrentStatus;
 use Illuminate\Support\Facades\Redis;
 
 class AdminController extends BasicController
 {
+    function setCurrentStatus(SetCurrentStatus $request)
+    {
+        $singer_id = $request->input('singer_id');
+        $song_id = $request->input('song_id');
+        $team_id = $request->input('team_id');
+        if (!empty($singer_id) && !Redis::hexists(self::KEY_SINGERS, $singer_id)) {
+            return response()->json(['code' => 400, 'message' => 'Singer not found'], 400);
+        }
+        if (!empty($song_id) && !Redis::hexists(self::KEY_SONGS, $song_id)) {
+            return response()->json(['code' => 400, 'message' => 'Song not found'], 400);
+        }
+        if (!empty($team_id) && !Redis::hexists(self::KEY_TEAMS, $team_id)) {
+            return response()->json(['code' => 400, 'message' => 'Team not found'], 400);
+        }
+        Redis::set(self::KEY_CURRENT_STATUS, json_encode([
+            'singer_id' => $singer_id,
+            'song_id' => $song_id,
+            'team_id' => $team_id,
+        ]));
+        return response()->json(['code' => 200, 'message' => 'Current status set successfully']);
+    }
+
     function collectScore(CollectScore $request)
     {
         $singer_id = $request->input('singer_id');

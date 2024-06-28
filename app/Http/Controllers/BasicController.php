@@ -40,14 +40,13 @@ namespace App\Http\Controllers;
 
 abstract class BasicController
 {
-    const KEY_CURRENT_SINGER = 'current_singer';
     const KEY_SINGERS = 'singers';
     const PREFIX_SINGER = 'singer_';
-    const KEY_CURRENT_SONG = 'current_song';
     const KEY_SONGS = 'songs';
     const PREFIX_SONG = 'song_';
     const KEY_TEAMS = 'teams';
     const PREFIX_TEAM = 'team_';
+    const KEY_CURRENT_STATUS = 'current_status';
     const SCORE_ITEMS = [
         'A' => 0.3, // 音准
         'B' => 0.2, // 音色

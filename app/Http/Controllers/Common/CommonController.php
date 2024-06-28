@@ -7,12 +7,6 @@ use App\Http\Requests\Common\AddSingers;
 use App\Http\Requests\Common\AddSongs;
 use App\Http\Requests\Common\ClearSingers;
 use App\Http\Requests\Common\ClearSongs;
-use App\Http\Requests\Common\GetCurrentSong;
-use App\Http\Requests\Common\GetSingers;
-use App\Http\Requests\Common\GetCurrentSinger;
-use App\Http\Requests\Common\GetSongs;
-use App\Http\Requests\Common\SetCurrentSinger;
-use App\Http\Requests\Common\SetCurrentSong;
 use Illuminate\Support\Facades\Redis;
 
 class CommonController extends BasicController
@@ -54,33 +48,10 @@ class CommonController extends BasicController
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
     }
 
-    function getSingers(GetSingers $request)
+    function getSingers()
     {
         $singers = Redis::hgetall(self::KEY_SINGERS);
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $singers]);
-    }
-
-    function setCurrentSinger(SetCurrentSinger $request)
-    {
-        $id = $request->input('id');
-        if (!Redis::hexists(self::KEY_SINGERS, $id)) {
-            return response()->json(['code' => 400, 'message' => 'Singer not found'], 400);
-        }
-        Redis::set(self::KEY_CURRENT_SINGER, $id);
-        return response()->json(['code' => 200, 'message' => 'Current singer set successfully']);
-    }
-
-    function getCurrentSinger(GetCurrentSinger $request)
-    {
-        $id = Redis::get(self::KEY_CURRENT_SINGER);
-        if (!$id) {
-            return response()->json(['code' => 404, 'message' => 'No current singer set'], 404);
-        }
-        $name = Redis::hget(self::KEY_SINGERS, $id);
-        if (!$name) {
-            return response()->json(['code' => 500, 'message' => 'Singer not found'], 500);
-        }
-        return response()->json(['code' => 200, 'message' => 'OK', 'data' => ['id' => $id, 'name' => $name]]);
     }
 
     function clearSongs(ClearSongs $request)
@@ -114,33 +85,10 @@ class CommonController extends BasicController
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
     }
 
-    function getSongs(GetSongs $request)
+    function getSongs()
     {
         $songs = Redis::hgetall(self::KEY_SONGS);
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $songs]);
-    }
-
-    function setCurrentSong(SetCurrentSong $request)
-    {
-        $id = $request->input('id');
-        if (!Redis::hexists(self::KEY_SONGS, $id)) {
-            return response()->json(['code' => 400, 'message' => 'Song not found'], 400);
-        }
-        Redis::set(self::KEY_CURRENT_SONG, $id);
-        return response()->json(['code' => 200, 'message' => 'Current song set successfully']);
-    }
-
-    function getCurrentSong(GetCurrentSong $request)
-    {
-        $id = Redis::get(self::KEY_CURRENT_SONG);
-        if (!$id) {
-            return response()->json(['code' => 404, 'message' => 'No current song set'], 404);
-        }
-        $name = Redis::hget(self::KEY_SONGS, $id);
-        if (!$name) {
-            return response()->json(['code' => 500, 'message' => 'Song not found'], 500);
-        }
-        return response()->json(['code' => 200, 'message' => 'OK', 'data' => ['id' => $id, 'name' => $name]]);
     }
 
     function clearTeams()
@@ -170,9 +118,46 @@ class CommonController extends BasicController
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
     }
 
-    function getTeams(GetSongs $request)
+    function getTeams()
     {
         $teams = Redis::hgetall(self::KEY_TEAMS);
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $teams]);
+    }
+
+    function getCurrentStatus()
+    {
+        $current_status = Redis::get(self::KEY_CURRENT_STATUS);
+        if (!$current_status) {
+            return response()->json(['code' => 404, 'message' => 'Current status not exist'], 404);
+        }
+        $current_status = json_decode($current_status, true);
+        if (!empty($current_status['singer_id'])) {
+            if (!Redis::hexists(self::KEY_SINGERS, $current_status['singer_id'])) {
+                return response()->json(['code' => 404, 'message' => 'Singer not found'], 404);
+            } else {
+                $current_status['singer'] = Redis::hget(self::KEY_SINGERS, $current_status['singer_id']);
+            }
+        } else {
+            $current_status['singer'] = null;
+        }
+        if (!empty($current_status['song_id'])) {
+            if (!Redis::hexists(self::KEY_SONGS, $current_status['song_id'])) {
+                return response()->json(['code' => 404, 'message' => 'Song not found'], 404);
+            } else {
+                $current_status['song'] = Redis::hget(self::KEY_SONGS, $current_status['song_id']);
+            }
+        } else {
+            $current_status['song'] = null;
+        }
+        if (!empty($current_status['team_id'])) {
+            if (!Redis::hexists(self::KEY_TEAMS, $current_status['team_id'])) {
+                return response()->json(['code' => 404, 'message' => 'Team not found'], 404);
+            } else {
+                $current_status['team'] = Redis::hget(self::KEY_TEAMS, $current_status['team_id']);
+            }
+        } else {
+            $current_status['team'] = null;
+        }
+        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $current_status]);
     }
 }
