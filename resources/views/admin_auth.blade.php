@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="/assets/favicon.png">
     <title>认证页 - 我不是歌神 S1</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/css/cover.css">
+    <link rel="stylesheet" href="/assets/css/admin-auth.css">
 </head>
 
 <body class="text-center">
