@@ -23,6 +23,7 @@
                 <label class="form-label">认证凭据</label>
                 <input type="password" class="form-control" name="token">
                 <div id="emailHelp" class="form-text text-muted">评委/后台人员请联系赛事管理人员获取认证凭据</div>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             </div>
             <button type="submit" class="btn btn-primary">提交</button>
         </form>
