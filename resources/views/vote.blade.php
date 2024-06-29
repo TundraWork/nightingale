@@ -190,7 +190,8 @@
             success: function (response) {
                 alert('投票成功！');
                 $('#vote-button').text('已投票');
-                localStorage.setItem('singer_id', singer_id);
+                $('#vote-button').disable();
+                localStorage.setItem('voted_singer_id', singer_id);
             },
             error: function (response) {
                 alert('投票失败！' + response.responseJSON.message);
@@ -199,29 +200,19 @@
     });
 
     function loadTeams() {
-        var apiUrls = [
-            '/api/v1/guests/getCurrentStatus',
-            '/api/v1/guests/getTeams',
-        ];
-        $.when.apply($, apiUrls.map(function (url) {
-            return $.ajax({
-                url: url,
-                method: 'GET'
-            });
-        })).done(function () {
-            // 所有请求完成，将所有数据集合到一个数组中
-            const allData = $.map(arguments, function (response) {
-                return response[0];
-            });
-            // 处理所有数据
-            singer_id = allData[0].data.singer_id;
-            team_id = allData[0].data.team_id;
-            Object.entries(allData[1].data).forEach((team, _) => {
-                if (team[0] === team_id) {
-                    $('#vote-button').text('给' + team[1] + '投票');
-                }
-            });
-        });
+        $.ajax({
+            url: "/api/v1/guests/getCurrentStatus",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                singer_id = data.data.singer_id;
+                team_id = data.data.team_id;
+                $('#vote-button').text('给' + data.data.team + '投票');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
     }
 
     function fetchData() {
@@ -234,7 +225,7 @@
                 url: url,
                 method: 'GET'
             });
-        })).done(function (loadTeams) {
+        })).done(function () {
             // 所有请求完成，将所有数据集合到一个数组中
             const allData = $.map(arguments, function (response) {
                 return response[0];
@@ -250,8 +241,13 @@
             };
             $('#vote-count-a').text(allData[1].data[0].total_votes);
             $('#vote-count-b').text(allData[1].data[1].total_votes);
-            if (singer_id !== localStorage.getItem('singer_id')) {
-                loadTeams();
+            let vote_button = $('#vote-button');
+            if (singer_id === localStorage.getItem('voted_singer_id')) {
+                vote_button.text('已投票');
+                vote_button.disable();
+            } else {
+                vote_button.text('给' + allData[0].data.team + '投票');
+                vote_button.enable();
             }
         });
     }
