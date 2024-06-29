@@ -189,7 +189,8 @@
             data: JSON.stringify({ "singer_id": singer_id, "team_id": team_id }), // 要提交的数据
             success: function (response) {
                 alert('投票成功！');
-                localStorage.setItem('voted_id', localStorage.getItem('id'));
+                $('#vote-button').text('已投票');
+                localStorage.setItem('singer_id', singer_id);
             },
             error: function (response) {
                 alert('投票失败！' + response.responseJSON.message);
@@ -198,26 +199,9 @@
     });
 
     function loadTeams() {
-        $.ajax({
-            url: '/api/v1/guests/getTeams',
-            type: 'GET',
-            success: function (response) {
-                Object.entries(response.data).forEach((team, _) => {
-                    if (team[0] === team_id) {
-                        $('#vote-button').text('给' + team[1] + '投票');
-                    }
-                });
-            },
-            error: function (response) {
-                console.log(response);
-            }
-        })
-    }
-
-    function fetchData(loadTeams = false) {
         var apiUrls = [
             '/api/v1/guests/getCurrentStatus',
-            '/api/v1/guests/collectAllVotes',
+            '/api/v1/guests/getTeams',
         ];
         $.when.apply($, apiUrls.map(function (url) {
             return $.ajax({
@@ -229,7 +213,32 @@
             const allData = $.map(arguments, function (response) {
                 return response[0];
             });
+            // 处理所有数据
+            singer_id = allData[0].data.singer_id;
+            team_id = allData[0].data.team_id;
+            Object.entries(allData[1].data).forEach((team, _) => {
+                if (team[0] === team_id) {
+                    $('#vote-button').text('给' + team[1] + '投票');
+                }
+            });
+        });
+    }
 
+    function fetchData() {
+        var apiUrls = [
+            '/api/v1/guests/getCurrentStatus',
+            '/api/v1/guests/collectAllVotes',
+        ];
+        $.when.apply($, apiUrls.map(function (url) {
+            return $.ajax({
+                url: url,
+                method: 'GET'
+            });
+        })).done(function (loadTeams) {
+            // 所有请求完成，将所有数据集合到一个数组中
+            const allData = $.map(arguments, function (response) {
+                return response[0];
+            });
             // 处理所有数据
             singer_id = allData[0].data.singer_id;
             team_id = allData[0].data.team_id;
@@ -241,29 +250,15 @@
             };
             $('#vote-count-a').text(allData[1].data[0].total_votes);
             $('#vote-count-b').text(allData[1].data[1].total_votes);
+            if (singer_id !== localStorage.getItem('singer_id')) {
+                loadTeams();
+            }
         });
-
-        if (loadTeams) {
-            $.ajax({
-                url: '/api/v1/guests/getTeams',
-                type: 'GET',
-                success: function (response) {
-                    Object.entries(response.data).forEach((team, _) => {
-                        if (team[0] === team_id) {
-                            $('#vote-button').text('给' + team[1] + '投票');
-                        }
-                    });
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            })
-        }
     }
 
-    async function init() {
-        await fetchData();
-        await loadTeams();
+    function init() {
+        fetchData();
+        loadTeams();
     }
 
     setInterval(function () {
