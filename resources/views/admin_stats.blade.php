@@ -117,7 +117,7 @@
                         >
                             当前选手：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="player">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="player">暂无</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -127,7 +127,7 @@
                         >
                             当前歌曲：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="song">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="song">暂无</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -137,7 +137,7 @@
                         >
                             评委总分：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="judge-score">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="judge-score">暂无</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -147,7 +147,7 @@
                         >
                             当前第一：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="team">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="team">暂无</dd>
                     </dl>
                 </div>
             </div>
@@ -180,7 +180,7 @@
                                     音准
                                 </p>
                             </td>
-                            <td class="text-right" id="A">Null</td>
+                            <td class="text-right" id="A">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -192,7 +192,7 @@
                                     音色
                                 </p>
                             </td>
-                            <td class="text-right" id="B">Null</td>
+                            <td class="text-right" id="B">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -204,7 +204,7 @@
                                     节奏
                                 </p>
                             </td>
-                            <td class="text-right" id="C">Null</td>
+                            <td class="text-right" id="C">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -216,7 +216,7 @@
                                     情感及个人表现
                                 </p>
                             </td>
-                            <td class="text-right" id="D">Null</td>
+                            <td class="text-right" id="D">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -228,7 +228,7 @@
                                     评委个人分
                                 </p>
                             </td>
-                            <td class="text-right" id="E">Null</td>
+                            <td class="text-right" id="E">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -240,7 +240,7 @@
                                     总分
                                 </p>
                             </td>
-                            <td class="text-right" id="total">Null</td>
+                            <td class="text-right" id="total">暂无</td>
                         </tr>
                         </tbody>
                     </table>
@@ -270,7 +270,7 @@
                                     音准
                                 </p>
                             </td>
-                            <td class="text-right" id="A">Null</td>
+                            <td class="text-right" id="A">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -282,7 +282,7 @@
                                     音色
                                 </p>
                             </td>
-                            <td class="text-right" id="B">Null</td>
+                            <td class="text-right" id="B">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -294,7 +294,7 @@
                                     节奏
                                 </p>
                             </td>
-                            <td class="text-right" id="C">Null</td>
+                            <td class="text-right" id="C">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -306,7 +306,7 @@
                                     情感及个人表现
                                 </p>
                             </td>
-                            <td class="text-right" id="D">Null</td>
+                            <td class="text-right" id="D">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -318,7 +318,7 @@
                                     评委个人分
                                 </p>
                             </td>
-                            <td class="text-right" id="E">Null</td>
+                            <td class="text-right" id="E">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -330,7 +330,7 @@
                                     总分
                                 </p>
                             </td>
-                            <td class="text-right" id="total">Null</td>
+                            <td class="text-right" id="total">暂无</td>
                         </tr>
                         </tbody>
                     </table>
@@ -360,7 +360,7 @@
                                     音准
                                 </p>
                             </td>
-                            <td class="text-right" id="A">Null</td>
+                            <td class="text-right" id="A">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -372,7 +372,7 @@
                                     音色
                                 </p>
                             </td>
-                            <td class="text-right" id="B">Null</td>
+                            <td class="text-right" id="B">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -384,7 +384,7 @@
                                     节奏
                                 </p>
                             </td>
-                            <td class="text-right" id="C">Null</td>
+                            <td class="text-right" id="C">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -396,7 +396,7 @@
                                     情感及个人表现
                                 </p>
                             </td>
-                            <td class="text-right" id="D">Null</td>
+                            <td class="text-right" id="D">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -408,7 +408,7 @@
                                     评委个人分
                                 </p>
                             </td>
-                            <td class="text-right" id="E">Null</td>
+                            <td class="text-right" id="E">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -420,7 +420,7 @@
                                     总分
                                 </p>
                             </td>
-                            <td class="text-right" id="total">Null</td>
+                            <td class="text-right" id="total">暂无</td>
                         </tr>
                         </tbody>
                     </table>
@@ -450,7 +450,7 @@
                                     音准
                                 </p>
                             </td>
-                            <td class="text-right" id="A">Null</td>
+                            <td class="text-right" id="A">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -462,7 +462,7 @@
                                     音色
                                 </p>
                             </td>
-                            <td class="text-right" id="B">Null</td>
+                            <td class="text-right" id="B">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -474,7 +474,7 @@
                                     节奏
                                 </p>
                             </td>
-                            <td class="text-right" id="C">Null</td>
+                            <td class="text-right" id="C">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -486,7 +486,7 @@
                                     情感及个人表现
                                 </p>
                             </td>
-                            <td class="text-right" id="D">Null</td>
+                            <td class="text-right" id="D">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -498,7 +498,7 @@
                                     评委个人分
                                 </p>
                             </td>
-                            <td class="text-right" id="E">Null</td>
+                            <td class="text-right" id="E">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -510,7 +510,7 @@
                                     总分
                                 </p>
                             </td>
-                            <td class="text-right" id="total">Null</td>
+                            <td class="text-right" id="total">暂无</td>
                         </tr>
                         </tbody>
                     </table>
@@ -540,7 +540,7 @@
                                     音准
                                 </p>
                             </td>
-                            <td class="text-right" id="A">Null</td>
+                            <td class="text-right" id="A">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -552,7 +552,7 @@
                                     音色
                                 </p>
                             </td>
-                            <td class="text-right" id="B">Null</td>
+                            <td class="text-right" id="B">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -564,7 +564,7 @@
                                     节奏
                                 </p>
                             </td>
-                            <td class="text-right" id="C">Null</td>
+                            <td class="text-right" id="C">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -576,7 +576,7 @@
                                     情感及个人表现
                                 </p>
                             </td>
-                            <td class="text-right" id="D">Null</td>
+                            <td class="text-right" id="D">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -588,7 +588,7 @@
                                     评委个人分
                                 </p>
                             </td>
-                            <td class="text-right" id="E">Null</td>
+                            <td class="text-right" id="E">暂无</td>
                         </tr>
                         <tr>
                             <td class="relative p-2">
@@ -600,7 +600,7 @@
                                     总分
                                 </p>
                             </td>
-                            <td class="text-right" id="total">Null</td>
+                            <td class="text-right" id="total">暂无</td>
                         </tr>
                         </tbody>
                     </table>
