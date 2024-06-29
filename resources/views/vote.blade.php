@@ -138,7 +138,7 @@
                         >
                             红队票数：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="voteRed">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="vote-count-a">Null</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -148,7 +148,7 @@
                         >
                             白队票数：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="voteWhite">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="vote-count-b">Null</dd>
                     </dl>
                 </div>
             </div>
@@ -159,10 +159,10 @@
 
                 <!-- Referrers -->
                 <div class="rounded-2xl bg-gray-900/50 p-5">
-                    <button class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800" id="red-team">给红队投票</button>
+                    <button class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800" id="vote-button-a">给红队投票</button>
                 </div>
                 <div class="rounded-2xl bg-gray-900/50 p-5">
-                    <button class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-gray-600" id="white-team">给白队投票</button>
+                    <button class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-gray-600" id="vote-button-b">给白队投票</button>
                 </div>
                 <!-- END Referrers -->
             </div>
@@ -217,51 +217,55 @@
 
 <!-- Page JS Code -->
 <script>
-    //按下red-team按钮后，发送ajax请求给后端
-    function random() {
-        return Math.floor(Math.random() * 10000000000).toString().padStart(10, '0');
+    let team_id_a = "";
+    let team_id_b = "";
+
+    function generateRandomString(length) {
+        const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
     }
 
-    $(document).on('click', '#red-team', function() {
-        if (localStorage.getItem('id') == localStorage.getItem('voted_id')) {
-            alert('您已投票，请勿重复投票！');
-            return;
-        } else {
-            $.ajax({
-                url: '/api/v1/guests/submitVote',
-                type: 'POST',
-                contentType: "application/json", // 请求的内容类型
-                data: JSON.stringify({"guest": random(), "team_id": "667dc3d59094f"}), // 要提交的数据
-                success: function(response) {
-                    alert('投票成功！');
-                    localStorage.setItem('voted_id', localStorage.getItem('id'));
-                }
-            })
-        }
+    $(document).on('click', '#vote-button-a', function() {
+        $.ajax({
+            url: '/api/v1/guests/submitVote',
+            type: 'POST',
+            contentType: "application/json", // 请求的内容类型
+            data: JSON.stringify({"guest": localStorage.getItem('guest'), "team_id": team_id_a}), // 要提交的数据
+            success: function(response) {
+                alert('投票成功！');
+                localStorage.setItem('voted_id', localStorage.getItem('id'));
+            },
+            error: function(response) {
+                alert('投票失败！' + response.message);
+            }
+        })
     });
 
-    $(document).on('click', '#white-team', function() {
-        if (localStorage.getItem('id') == localStorage.getItem('voted_id')) {
-            alert('您已投票，请勿重复投票！');
-            return;
-        } else {
-            $.ajax({
-                url: '/api/v1/guests/submitVote',
-                type: 'POST',
-                contentType: "application/json", // 请求的内容类型
-                data: JSON.stringify({"guest": random(), "team_id": "667dc3d590acb"}), // 要提交的数据
-                success: function(response) {
-                    alert('投票成功！'); // 打印响应结果
-                    localStorage.setItem('voted_id', localStorage.getItem('id'));
-                }
-            })
-        }
+    $(document).on('click', '#vote-button-b', function() {
+        $.ajax({
+            url: '/api/v1/guests/submitVote',
+            type: 'POST',
+            contentType: "application/json", // 请求的内容类型
+            data: JSON.stringify({"guest": localStorage.getItem('guest'), "team_id": team_id_b}), // 要提交的数据
+            success: function(response) {
+                alert('投票成功！'); // 打印响应结果
+                localStorage.setItem('voted_id', localStorage.getItem('id'));
+            },
+            error: function(response) {
+                alert('投票失败！' + response.message);
+            }
+        })
     });
 
     function fetchData() {
         var apiUrls = [
             '/api/v1/admin/getCurrentStatus',
             '/api/v1/admin/collectAllVotes',
+            '/api/v1/admin/getTeams',
         ];
         $.when.apply($, apiUrls.map(function(url) {
             return $.ajax({
@@ -270,7 +274,7 @@
             });
         })).done(function() {
             // 所有请求完成，将所有数据集合到一个数组中
-            var allData = $.map(arguments, function(response) {
+            const allData = $.map(arguments, function (response) {
                 return response[0];
             });
 
@@ -281,13 +285,30 @@
             } else {
                 $('#team').text(allData[0].data.team);
             };
-            $('#voteRed').text(allData[1].data[0].total_votes);
-            $('#voteWhite').text(allData[1].data[1].total_votes);
-            localStorage.setItem('id', allData[0].data.singer_id);
+            $('#vote-count-a').text(allData[1].data[0].total_votes);
+            $('#vote-count-b').text(allData[1].data[1].total_votes);
+            team_index = 0;
+            for (const [team_id, team_name] in Object.entries(allData[2].data)) {
+                if (team_index === 0) {
+                    team_id_a = team_id;
+                    $('#vote-button-a').text('给' + team_name + '投票');
+                }
+                if (team_index === 1) {
+                    team_id_b = team_id;
+                    $('#vote-button-b').text('给' + team_name + '投票');
+                }
+                if (team_index > 1) {
+                    break;
+                }
+                team_index++;
+            }
         });
     }
 
     function init() {
+        if (localStorage.getItem('guest') === null) {
+            localStorage.setItem('guest', generateRandomString(16));
+        }
         fetchData();
     }
 
