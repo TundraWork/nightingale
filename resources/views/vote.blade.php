@@ -121,7 +121,7 @@
                 <!-- Referrers -->
                 <div class="rounded-2xl bg-gray-900/50 p-5">
                     <button class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800"
-                            id="vote-button">正在加载，请稍后...</button>
+                            id="vote-button" disabled>正在加载，请稍后...</button>
                 </div>
                 <!-- END Referrers -->
             </div>
@@ -190,7 +190,7 @@
             success: function (response) {
                 alert('投票成功！');
                 $('#vote-button').text('已投票');
-                $('#vote-button').disable();
+                $('#vote-button').prop("disabled", true);
                 localStorage.setItem('voted_singer_id', singer_id);
             },
             error: function (response) {
@@ -208,6 +208,7 @@
                 singer_id = data.data.singer_id;
                 team_id = data.data.team_id;
                 $('#vote-button').text('给' + data.data.team + '投票');
+                $('#vote-button').prop("disabled", false);
             },
             error: function (error) {
                 console.log(error);
@@ -244,10 +245,10 @@
             let vote_button = $('#vote-button');
             if (singer_id === localStorage.getItem('voted_singer_id')) {
                 vote_button.text('已投票');
-                vote_button.disable();
+                vote_button.prop("disabled", true);
             } else {
                 vote_button.text('给' + allData[0].data.team + '投票');
-                vote_button.enable();
+                vote_button.prop("disabled", false);
             }
         });
     }
