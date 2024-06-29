@@ -411,22 +411,12 @@
         });
     }
 
-    function delAll() {
+    function delTeams() {
         $(document).ready(function(){
             var result = confirm("您确定要删除所有战队吗？");
             if (result) {
                 $.ajax({
                     url: '/api/v1/admin/clearTeams',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        console.log(data);
-                    }, error: function (error) {
-                        console.error('Error:', error);
-                    }
-                })
-                $.ajax({
-                    url: '/api/v1/admin/clearSongs',
                     type: 'POST',
                     contentType: 'application/json',
                     success: function (data) {

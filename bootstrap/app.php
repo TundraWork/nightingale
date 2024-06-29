@@ -12,7 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/ping',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->api(append: [
+            \Illuminate\Cookie\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
