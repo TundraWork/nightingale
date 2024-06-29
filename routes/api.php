@@ -14,6 +14,7 @@ Route::prefix('v1')->group(function () {
         Route::post('submitScore', [JudgesController::class, 'submitScore']);
     });
     Route::prefix('guests')->namespace('Guests')->middleware(ApiAuth::class)->group(function () {
+        Route::get('getTeams', [CommonController::class, 'getTeams']);
         Route::get('getCurrentStatus', [CommonController::class, 'getCurrentStatus']);
         Route::post('submitVote', [GuestsController::class, 'submitVote']);
         Route::get('collectAllScores', [AdminController::class, 'collectAllScores']);
