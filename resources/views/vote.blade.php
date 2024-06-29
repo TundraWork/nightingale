@@ -214,7 +214,7 @@
         })
     }
 
-    function fetchData() {
+    function fetchData(loadTeams = false) {
         var apiUrls = [
             '/api/v1/guests/getCurrentStatus',
             '/api/v1/guests/collectAllVotes',
@@ -242,15 +242,31 @@
             $('#vote-count-a').text(allData[1].data[0].total_votes);
             $('#vote-count-b').text(allData[1].data[1].total_votes);
         });
+
+        if (loadTeams) {
+            $.ajax({
+                url: '/api/v1/guests/getTeams',
+                type: 'GET',
+                success: function (response) {
+                    Object.entries(response.data).forEach((team, _) => {
+                        if (team[0] === team_id) {
+                            $('#vote-button').text('给' + team[1] + '投票');
+                        }
+                    });
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            })
+        }
     }
 
     function init() {
-        fetchData();
-        setTimeout(loadTeams, 0);
+        fetchData(true);
     }
 
     setInterval(function () {
-        fetchData();
+        fetchData(false);
     }, 5000);
 </script>
 </body>
