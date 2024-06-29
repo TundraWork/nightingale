@@ -168,9 +168,9 @@
 
 <script>
     var apiUrls = [
-        'https://nightingale.railgun.co/api/v1/admin/getSingers',
-        'https://nightingale.railgun.co/api/v1/admin/getSongs',
-        'https://nightingale.railgun.co/api/v1/admin/getTeams',
+        '/api/v1/admin/getSingers',
+        '/api/v1/admin/getSongs',
+        '/api/v1/admin/getTeams',
     ];
     $.when.apply($, apiUrls.map(function (url) {
         return $.ajax({
