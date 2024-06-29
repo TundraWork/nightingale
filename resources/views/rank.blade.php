@@ -248,13 +248,15 @@
                 $('#rank3').text(data.data[2].name);
                 $('#rank4').text(data.data[3].name);
                 $.each(data.data, function(key, value) {
-                    var row = $('<tr>').append(
-                        $("<td> class='text-left'>").text(key + 1),
-                        $("<td class='text-center'>").text(value.name),
-                        $("<td class='text-center'>").text(value.songs[0].song),
-                        $("<td class='text-right'>").text(value.game_score + '分')
-                    );
-                    $('#data-table tbody').append(row);
+                    if (value.songs.length !== 0){
+                        var row = $('<tr>').append(
+                            $("<td> class='text-left'>").text(key + 1),
+                            $("<td class='text-center'>").text(value.name),
+                            $("<td class='text-center'>").text(value.songs[0].song),
+                            $("<td class='text-right'>").text(value.game_score + '分')
+                        );
+                        $('#data-table tbody').append(row);
+                    }
                 });
             },
             error: function (error) {

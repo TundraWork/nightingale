@@ -713,7 +713,7 @@
                     };
 
                     var updateScores = function(response) {
-                        for (var i = 0; i < 5; i++) {
+                        for (var i = 0; i < response.data.scores.length; i++) {
                             var element = getElement(response.data.scores[i].judge);
 
                             $(element + ' #A').text(response.data.scores[i].data[0].score + '分');
