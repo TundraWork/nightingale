@@ -261,12 +261,13 @@
         }
     }
 
-    function init() {
-        fetchData(true);
+    async function init() {
+        await fetchData();
+        await loadTeams();
     }
 
     setInterval(function () {
-        fetchData(false);
+        fetchData();
     }, 5000);
 </script>
 </body>
