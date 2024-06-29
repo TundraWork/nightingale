@@ -246,7 +246,7 @@
 
     function init() {
         fetchData();
-        loadTeams();
+        setTimeout(loadTeams, 0);
     }
 
     setInterval(function () {
