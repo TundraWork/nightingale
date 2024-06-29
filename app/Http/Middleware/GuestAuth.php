@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiAuth
+class GuestAuth
 {
     /**
      * Handle an incoming request.
@@ -16,6 +16,9 @@ class ApiAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!Session::has('guest_id')) {
+            Session::put('guest_id', uniqid());
+        }
         return $next($request);
     }
 }
