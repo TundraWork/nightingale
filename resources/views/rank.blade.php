@@ -247,6 +247,7 @@
                 $('#rank2').text(data.data[1].name);
                 $('#rank3').text(data.data[2].name);
                 $('#rank4').text(data.data[3].name);
+                $('#data-table tbody').empty();
                 $.each(data.data, function(key, value) {
                     if (value.songs.length !== 0){
                         var row = $('<tr>').append(
