@@ -222,8 +222,8 @@
 
     function fetchData() {
         var apiUrls = [
-            '/api/v1/guest/getCurrentStatus',
-            '/api/v1/guest/collectAllVotes',
+            '/api/v1/guests/getCurrentStatus',
+            '/api/v1/guests/collectAllVotes',
         ];
         $.when.apply($, apiUrls.map(function (url) {
             return $.ajax({

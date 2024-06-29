@@ -239,7 +239,7 @@
 <script>
     function init(){
         $.ajax({
-            url: "/api/v1/guest/collectAllScores",
+            url: "/api/v1/guests/collectAllScores",
             type: "GET",
             dataType: "json",
             success: function (data) {
