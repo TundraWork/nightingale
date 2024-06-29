@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\AdminAuth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,7 +18,7 @@ Route::get('/judge', function () {
 });
 Route::get('/admin/auth', [AuthController::class, 'gateway']);
 Route::post('/admin/auth', [AuthController::class, 'gateway']);
-Route::group(['prefix' => 'admin', 'middleware' => 'AdminAuth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => AdminAuth::class], function () {
     Route::get('/edit', function () {
         return view('admin_edit');
     });
