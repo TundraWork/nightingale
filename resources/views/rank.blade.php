@@ -264,7 +264,6 @@
                 console.log(error);
             }
         })
-        console.log('init');
     }
     setInterval(function() {
         init();
