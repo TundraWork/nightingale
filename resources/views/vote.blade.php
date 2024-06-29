@@ -1,10 +1,11 @@
+
 <!doctype html>
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
-    <title>选手排名 - 我不是歌神 S1</title>
+    <title>观众投票系统</title>
 
     <!-- Icons -->
     <link
@@ -53,9 +54,6 @@
         [x-cloak] {
             display: none !important;
         }
-        .space-y-4 tbody tr {
-            height: 40px;
-        }
     </style>
 </head>
 <body onload="init()">
@@ -89,20 +87,13 @@
                             d="M10 1a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 1ZM5.05 3.05a.75.75 0 0 1 1.06 0l1.062 1.06A.75.75 0 1 1 6.11 5.173L5.05 4.11a.75.75 0 0 1 0-1.06ZM14.95 3.05a.75.75 0 0 1 0 1.06l-1.06 1.062a.75.75 0 0 1-1.062-1.061l1.061-1.06a.75.75 0 0 1 1.06 0ZM3 8a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 3 8ZM14 8a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 14 8ZM7.172 10.828a.75.75 0 0 1 0 1.061L6.11 12.95a.75.75 0 0 1-1.06-1.06l1.06-1.06a.75.75 0 0 1 1.06 0ZM10.766 7.51a.75.75 0 0 0-1.37.365l-.492 6.861a.75.75 0 0 0 1.204.65l1.043-.799.985 3.678a.75.75 0 0 0 1.45-.388l-.978-3.646 1.292.204a.75.75 0 0 0 .74-1.16l-3.874-5.764Z"
                         />
                     </svg>
-                    <span class="hidden sm:inline">选手排名 - 我不是歌神 S1</span>
+                    <span class="hidden sm:inline">我不是歌神 观众投票</span>
                 </a>
             </div>
             <!-- Left Section -->
 
             <!-- Right Section -->
             <div class="flex items-center gap-2">
-                <!-- links to other pages -->
-                <a href="#" class="hidden sm:inline font-medium text-gray-400 hover:text-white">
-                    <span>观众投票</span>
-                </a>
-                <a href="/rank" class="hidden sm:inline font-medium text-gray-400 hover:text-white">
-                    <span>选手排名</span>
-                </a>
             </div>
             <!-- END Right Section -->
         </div>
@@ -125,9 +116,9 @@
                         <dt
                             class="text-sm font-semibold uppercase tracking-wider text-gray-400"
                         >
-                            第一名：
+                            当前选手：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank1">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="player">Null</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -135,9 +126,9 @@
                         <dt
                             class="text-sm font-semibold uppercase tracking-wider text-gray-400"
                         >
-                            第二名：
+                            属于队伍：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank2">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="team">Null</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -145,9 +136,9 @@
                         <dt
                             class="text-sm font-semibold uppercase tracking-wider text-gray-400"
                         >
-                            第三名：
+                            红队票数：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank3">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="voteRed">Null</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -155,32 +146,23 @@
                         <dt
                             class="text-sm font-semibold uppercase tracking-wider text-gray-400"
                         >
-                            第四名：
+                            白队票数：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank4">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="voteWhite">Null</dd>
                     </dl>
                 </div>
             </div>
             <!-- END Quick Stats -->
 
             <!-- Details -->
-            <div class="grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
 
                 <!-- Referrers -->
                 <div class="rounded-2xl bg-gray-900/50 p-5">
-                    <table class="w-full text-sm space-y-4" id="data-table">
-                        <thead>
-                        <tr>
-                            <th class="p-2 text-left font-medium text-gray-400">排名</th>
-                            <th class="p-2 text-center font-medium text-gray-400">名字</th>
-                            <th class="p-2 text-center font-medium text-gray-400">歌曲</th>
-                            <th class="p-2 text-right font-medium text-gray-400">总分</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!-- Data will be appended here -->
-                        </tbody>
-                    </table>
+                    <button class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800" id="red-team">给红队投票</button>
+                </div>
+                <div class="rounded-2xl bg-gray-900/50 p-5">
+                    <button class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-gray-600" id="white-team">给白队投票</button>
                 </div>
                 <!-- END Referrers -->
             </div>
@@ -199,11 +181,10 @@
             class="container mx-auto flex flex-col px-4 text-center text-sm md:flex-row md:justify-between md:text-left lg:px-8 xl:max-w-6xl"
         >
             <div class="pb-1 pt-4 md:pb-4">
-                &copy;
+                <span class="font-medium">我不是歌神</span> ©
                 <script>
                     document.write(new Date().getFullYear());
                 </script>
-                <span class="font-medium">我不是歌神</span>
             </div>
             <div
                 class="inline-flex items-center justify-center gap-1 pb-4 pt-1 md:pt-4"
@@ -220,14 +201,13 @@
                         d="m9.653 16.915-.005-.003-.019-.01a20.759 20.759 0 0 1-1.162-.682 22.045 22.045 0 0 1-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 0 1-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 0 1-.69.001l-.002-.001Z"
                     />
                 </svg>
-                <span> / </span>
-                <span>UI -
-              <a class="font-medium text-blue-400 hover:text-blue-500 hover:underline" href="https://vrchat.com/home/user/usr_0e9c75fa-ec70-4043-9fca-264c9e0af6ba">Oniya</a>
-            </span>
-                <span> / </span>
-                <span>Backend & hosting -
-              <a class="font-medium text-blue-400 hover:text-blue-500 hover:underline" href="https://tun.cat">Tundra</a>
-            </span>
+                <span
+                >by
+              <a
+                  class="font-medium text-blue-400 hover:text-blue-500 hover:underline"
+              >Oniya & YuzurihaAsano</a
+              ></span
+                >
             </div>
         </div>
     </footer>
@@ -237,33 +217,82 @@
 
 <!-- Page JS Code -->
 <script>
-    function init(){
-        $.ajax({
-            url: "/api/v1/guests/collectAllScores",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                $('#rank1').text(data.data[0].name);
-                $('#rank2').text(data.data[1].name);
-                $('#rank3').text(data.data[2].name);
-                $('#rank4').text(data.data[3].name);
-                $.each(data.data, function(key, value) {
-                    var row = $('<tr>').append(
-                        $("<td> class='text-left'>").text(key + 1),
-                        $("<td class='text-center'>").text(value.name),
-                        $("<td class='text-center'>").text(value.songs[0].song),
-                        $("<td class='text-right'>").text(value.game_score + '分')
-                    );
-                    $('#data-table tbody').append(row);
-                });
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        })
+    //按下red-team按钮后，发送ajax请求给后端
+    function random() {
+        return Math.floor(Math.random() * 10000000000).toString().padStart(10, '0');
     }
+
+    $(document).on('click', '#red-team', function() {
+        if (localStorage.getItem('id') == localStorage.getItem('voted_id')) {
+            alert('您已投票，请勿重复投票！');
+            return;
+        } else {
+            $.ajax({
+                url: '/api/v1/guests/submitVote',
+                type: 'POST',
+                contentType: "application/json", // 请求的内容类型
+                data: JSON.stringify({"guest": random(), "team_id": "667dc3d59094f"}), // 要提交的数据
+                success: function(response) {
+                    alert('投票成功！');
+                    localStorage.setItem('voted_id', localStorage.getItem('id'));
+                }
+            })
+        }
+    });
+
+    $(document).on('click', '#white-team', function() {
+        if (localStorage.getItem('id') == localStorage.getItem('voted_id')) {
+            alert('您已投票，请勿重复投票！');
+            return;
+        } else {
+            $.ajax({
+                url: '/api/v1/guests/submitVote',
+                type: 'POST',
+                contentType: "application/json", // 请求的内容类型
+                data: JSON.stringify({"guest": random(), "team_id": "667dc3d590acb"}), // 要提交的数据
+                success: function(response) {
+                    alert('投票成功！'); // 打印响应结果
+                    localStorage.setItem('voted_id', localStorage.getItem('id'));
+                }
+            })
+        }
+    });
+
+    function fetchData() {
+        var apiUrls = [
+            '/api/v1/admin/getCurrentStatus',
+            '/api/v1/admin/collectAllVotes',
+        ];
+        $.when.apply($, apiUrls.map(function(url) {
+            return $.ajax({
+                url: url,
+                method: 'GET'
+            });
+        })).done(function() {
+            // 所有请求完成，将所有数据集合到一个数组中
+            var allData = $.map(arguments, function(response) {
+                return response[0];
+            });
+
+            // 处理所有数据
+            $('#player').text(allData[0].data.singer);
+            if (allData[0].data.team == null) {
+                $('#team').text('暂无');
+            } else {
+                $('#team').text(allData[0].data.team);
+            };
+            $('#voteRed').text(allData[1].data[0].total_votes);
+            $('#voteWhite').text(allData[1].data[1].total_votes);
+            localStorage.setItem('id', allData[0].data.singer_id);
+        });
+    }
+
+    function init() {
+        fetchData();
+    }
+
     setInterval(function() {
-        init();
+        fetchData();
     }, 5000);
 </script>
 </body>
