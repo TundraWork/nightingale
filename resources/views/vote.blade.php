@@ -263,9 +263,9 @@
 
     function fetchData() {
         var apiUrls = [
-            '/api/v1/admin/getCurrentStatus',
-            '/api/v1/admin/collectAllVotes',
-            '/api/v1/admin/getTeams',
+            '/api/v1/guests/getCurrentStatus',
+            '/api/v1/guests/collectAllVotes',
+            '/api/v1/guests/getTeams',
         ];
         $.when.apply($, apiUrls.map(function(url) {
             return $.ajax({
