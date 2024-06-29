@@ -97,7 +97,7 @@
                 </div>
                 <div class="rounded-2xl bg-gray-900/50 p-5">
                     <a href="#"><button
-                            class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800">参与观众投票（第二场开放）</button></a>
+                            class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800" disabled>参与观众投票（第二场开放）</button></a>
                 </div>
                 <!-- END Referrers -->
             </div>
@@ -114,19 +114,19 @@
                         <li>当前报名已终止。欢迎通过现场观众或官方直播方式参与我们。</li>
                     </ul>
 
-                    <h2 class="text-xl font-bold mb-2">賽制内容</h2>
+                    <h2 class="text-xl font-bold mb-2">赛制内容</h2>
                     <h3 class="text-lg font-bold mb-2">海选</h3>
                     <ul class="list-disc list-inside mb-4">
                         <li>6/30 18:00进场 19:00開始 不公开直播</li>
                         <li>每位选手准备自我介绍+半首歌</li>
                         <li>四位导师逐个听完后进行评分</li>
-                        <li>(曲目+介绍 限制时间 3分钟)</li>
+                        <li>时间限制：曲目+介绍 限制3分钟</li>
                         <li>评分后最高的15位选手晋级至正赛 结果不会立刻出来，需要等所有选手表演完成后，选择15位分数最高的选手进入正赛</li>
                         <li>选手可以自由选择留下观看或离开</li>
                     </ul>
 
                     <h3 class="text-lg font-bold mb-2">正赛</h3>
-                    <h4 class="text-md font-bold mb-2">第一场 戰隊爭奪賽</h4>
+                    <h4 class="text-md font-bold mb-2">第一场 战队争夺赛</h4>
                     <ul class="list-disc list-inside mb-4">
                         <li>15个选手只取10个名额，每组导师会有5个人员名额</li>
                         <li>所有选手轮流上台演唱，演唱过程导师可以选择是否要转身选择该选手，到该选手演唱结束前都有选择的机会。</li>
@@ -135,7 +135,7 @@
                         <li>若在此遇到同一位选手被两组导师邀请，同样由参赛选手自行决定要加入哪个战对。</li>
                     </ul>
 
-                    <h4 class="text-md font-bold mb-2">第二場 戰隊對抗賽</h4>
+                    <h4 class="text-md font-bold mb-2">第二场 战队对抗赛</h4>
                     <ul class="list-disc list-inside mb-4">
                         <li>内容将随比赛进行逐步揭晓，敬请期待</li>
                     </ul>
@@ -145,7 +145,7 @@
                         <li>内容将随比赛进行逐步揭晓，敬请期待</li>
                     </ul>
 
-                    <h2 class="text-xl font-bold mb-2">責任相關</h2>
+                    <h2 class="text-xl font-bold mb-2">責任相关</h2>
                     <ol class="list-decimal list-inside mb-4">
                         <li>本次大赛主办方有权利对大赛规则进行合理的中途更改，但是会尽最大可能提前通知所有参赛人员。</li>
                         <li>选手参加比赛并出场，即代表选手已认真阅读并同意大赛各项规则制度。</li>
