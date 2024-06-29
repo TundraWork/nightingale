@@ -248,13 +248,13 @@
                 $('#rank3').text(data.data[2].name);
                 $('#rank4').text(data.data[3].name);
                 $('#data-table tbody').empty();
-                $.each(data.data, function(key, value) {
-                    if (value.songs.length !== 0){
+                Object.entries(data.data).forEach((entry, _) => {
+                    if (entry[1].songs.length !== 0){
                         var row = $('<tr>').append(
-                            $("<td> class='text-left'>").text(key + 1),
-                            $("<td class='text-center'>").text(value.name),
-                            $("<td class='text-center'>").text(value.songs[0].song),
-                            $("<td class='text-right'>").text(value.game_score + '分')
+                            $("<td> class='text-left'>").text(entry[0] + 1),
+                            $("<td class='text-center'>").text(entry[1].name),
+                            $("<td class='text-center'>").text(entry[1].songs[0].song),
+                            $("<td class='text-right'>").text(entry[1].game_score + '分')
                         );
                         $('#data-table tbody').append(row);
                     }

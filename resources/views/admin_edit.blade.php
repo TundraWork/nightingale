@@ -204,24 +204,24 @@
         optionTeamDefault.textContent = "请选择 / 不选择=保持此项状态不变";
         teams.appendChild(optionTeamDefault);
 
-        for (const [singer_id, singer_name] in Object.entries(singerData.data)) {
+        Object.entries(singerData.data).forEach((singer, _) => {
             const optionSinger = document.createElement("option");
-            optionSinger.value = singer_id;
-            optionSinger.textContent = singer_name;
+            optionSinger.value = singer[0];
+            optionSinger.textContent = singer[1];
             singers.appendChild(optionSinger);
-        }
-        for (const [song_id, song_name] in Object.entries(songData.data)) {
+        });
+        Object.entries(songData.data).forEach((song, _) => {
             const optionSong = document.createElement("option");
-            optionSong.value = song_id;
-            optionSong.textContent = song_name;
+            optionSong.value = song[0];
+            optionSong.textContent = song[1];
             songs.appendChild(optionSong);
-        }
-        for (const [team_id, team_name] in Object.entries(teamData.data)) {
+        });
+        Object.entries(teamData.data).forEach((team, _) => {
             const optionTeam = document.createElement("option");
-            optionTeam.value = team_id;
-            optionTeam.textContent = team_name;
+            optionTeam.value = team[0];
+            optionTeam.textContent = team[1];
             teams.appendChild(optionTeam);
-        }
+        });
     });
 
     function submit() {
