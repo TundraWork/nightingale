@@ -7,11 +7,15 @@ use App\Http\Requests\BasicRequest;
 class SubmitVote extends BasicRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Add guest_id from session to the request.
+     *
+     * @return void
      */
-    public function authorize(): bool
+    public function prepareForValidation(): void
     {
-        return true;
+        $this->merge([
+            'guest_id' => session('guest_id'),
+        ]);
     }
 
     /**
@@ -22,7 +26,8 @@ class SubmitVote extends BasicRequest
     public function rules(): array
     {
         return [
-            'guest' => 'required|string',
+            'guest_id' => 'required|string', // from session, not user input
+            'singer_id' => 'required|string',
             'team_id' => 'required|string',
         ];
     }

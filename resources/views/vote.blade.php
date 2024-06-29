@@ -117,16 +117,11 @@
             <!-- END Quick Stats -->
 
             <!-- Details -->
-            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-1 lg:gap-8">
                 <!-- Referrers -->
                 <div class="rounded-2xl bg-gray-900/50 p-5">
                     <button class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800"
-                            id="vote-button-a">给红队投票</button>
-                </div>
-                <div class="rounded-2xl bg-gray-900/50 p-5">
-                    <button class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-gray-600"
-                            id="vote-button-b">给白队投票</button>
+                            id="vote-button">正在加载，请稍后...</button>
                 </div>
                 <!-- END Referrers -->
             </div>
@@ -183,24 +178,15 @@
 
 <!-- Page JS Code -->
 <script>
-    let team_id_a = "";
-    let team_id_b = "";
+    let singer_id = "";
+    let team_id = "";
 
-    function generateRandomString(length) {
-        const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
-        let result = '';
-        for (let i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-        return result;
-    }
-
-    $(document).on('click', '#vote-button-a', function () {
+    $(document).on('click', '#vote-button', function () {
         $.ajax({
-            url: 'https://sing.vrc.one/api/v1/guests/submitVote',
+            url: '/api/v1/guests/submitVote',
             type: 'POST',
             contentType: "application/json", // 请求的内容类型
-            data: JSON.stringify({ "guest": localStorage.getItem('guest'), "team_id": team_id_a }), // 要提交的数据
+            data: JSON.stringify({ "singer_id": singer_id, "team_id": team_id }), // 要提交的数据
             success: function (response) {
                 alert('投票成功！');
                 localStorage.setItem('voted_id', localStorage.getItem('id'));
@@ -211,38 +197,15 @@
         })
     });
 
-    $(document).on('click', '#vote-button-b', function () {
-        $.ajax({
-            url: 'https://sing.vrc.one/api/v1/guests/submitVote',
-            type: 'POST',
-            contentType: "application/json", // 请求的内容类型
-            data: JSON.stringify({ "guest": localStorage.getItem('guest'), "team_id": team_id_b }), // 要提交的数据
-            success: function (response) {
-                alert('投票成功！'); // 打印响应结果
-                localStorage.setItem('voted_id', localStorage.getItem('id'));
-            },
-            error: function (response) {
-                alert('投票失败！' + response.responseJSON.message);
-            }
-        })
-    });
-
     function loadTeams() {
         $.ajax({
-            url: 'https://sing.vrc.one/api/v1/guests/getTeams',
+            url: '/api/v1/guests/getTeams',
             type: 'GET',
             success: function (response) {
-                team_index = 0;
                 Object.entries(response.data).forEach((team, _) => {
-                    if (team_index === 0) {
-                        team_id_a = team[0];
-                        $('#vote-button-a').text('给' + team[1] + '投票');
+                    if (team[0] === team_id) {
+                        $('#vote-button').text('给' + team[1] + '投票');
                     }
-                    if (team_index === 1) {
-                        team_id_b = team[0];
-                        $('#vote-button-b').text('给' + team[1] + '投票');
-                    }
-                    team_index++;
                 });
             },
             error: function (response) {
@@ -253,8 +216,8 @@
 
     function fetchData() {
         var apiUrls = [
-            'https://sing.vrc.one/api/v1/guests/getCurrentStatus',
-            'https://sing.vrc.one/api/v1/guests/collectAllVotes',
+            '/api/v1/guests/getCurrentStatus',
+            '/api/v1/guests/collectAllVotes',
         ];
         $.when.apply($, apiUrls.map(function (url) {
             return $.ajax({
@@ -268,6 +231,8 @@
             });
 
             // 处理所有数据
+            singer_id = allData[0].data.singer_id;
+            team_id = allData[0].data.team_id;
             $('#player').text(allData[0].data.singer);
             if (allData[0].data.team == null) {
                 $('#team').text('暂无');
@@ -280,9 +245,6 @@
     }
 
     function init() {
-        if (localStorage.getItem('guest') === null) {
-            localStorage.setItem('guest', generateRandomString(16));
-        }
         loadTeams();
         fetchData();
     }
