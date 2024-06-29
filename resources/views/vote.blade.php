@@ -207,8 +207,14 @@
             success: function (data) {
                 singer_id = data.data.singer_id;
                 team_id = data.data.team_id;
-                $('#vote-button').text('给' + data.data.team + '投票');
-                $('#vote-button').prop("disabled", false);
+                let vote_button = $('#vote-button');
+                if (singer_id === localStorage.getItem('voted_singer_id')) {
+                    vote_button.text('已投票');
+                    vote_button.prop("disabled", true);
+                } else {
+                    vote_button.text('给' + allData[0].data.team + '投票');
+                    vote_button.prop("disabled", false);
+                }
             },
             error: function (error) {
                 console.log(error);
