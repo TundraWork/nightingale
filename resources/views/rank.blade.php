@@ -263,7 +263,9 @@
         })
         console.log('init');
     }
-    setInterval(init(), 5000);
+    setInterval(function() {
+        init();
+    }, 5000);
 </script>
 </body>
 </html>
