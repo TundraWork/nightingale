@@ -127,7 +127,7 @@
                         >
                             第一名：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank1">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank1">暂无</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -137,7 +137,7 @@
                         >
                             第二名：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank2">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank2">暂无</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -147,7 +147,7 @@
                         >
                             第三名：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank3">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank3">暂无</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -157,7 +157,7 @@
                         >
                             第四名：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank4">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="rank4">暂无</dd>
                     </dl>
                 </div>
             </div>
@@ -251,7 +251,7 @@
                 Object.entries(data.data).forEach((entry, _) => {
                     if (entry[1].songs.length !== 0){
                         var row = $('<tr>').append(
-                            $("<td> class='text-left'>").text(entry[0] + 1),
+                            $("<td> class='text-left'>").text(Number(entry[0]) + 1),
                             $("<td class='text-center'>").text(entry[1].name),
                             $("<td class='text-center'>").text(entry[1].songs[0].song),
                             $("<td class='text-right'>").text(entry[1].game_score + '分')
