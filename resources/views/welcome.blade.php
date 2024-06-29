@@ -111,13 +111,13 @@
                     <h2 class="text-xl font-bold mb-2">报名参赛</h2>
                     <ul class="list-disc list-inside mb-4">
                         <li>本次大赛采取开放报名制，不会采取预定邀约，除非有例外发生，将会采取预定邀约，并且我们会审查报名人员，为了保护大赛过程不发生任何冲突以及意外。</li>
-                        <li>当前报名已终止。欢迎通过现场观众或官方直播方式参与我们。</li>
+                        <li>当前报名已结束。欢迎通过现场观看或官方直播方式参与我们。</li>
                     </ul>
 
                     <h2 class="text-xl font-bold mb-2">赛制内容</h2>
                     <h3 class="text-lg font-bold mb-2">海选</h3>
                     <ul class="list-disc list-inside mb-4">
-                        <li>6/30 18:00进场 19:00開始 不公开直播</li>
+                        <li>6/30 18:00进场 19:00开始 不公开直播</li>
                         <li>每位选手准备自我介绍+半首歌</li>
                         <li>四位导师逐个听完后进行评分</li>
                         <li>时间限制：曲目+介绍 限制3分钟</li>
@@ -183,12 +183,12 @@
                     <path
                         d="m9.653 16.915-.005-.003-.019-.01a20.759 20.759 0 0 1-1.162-.682 22.045 22.045 0 0 1-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 0 1-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 0 1-.69.001l-.002-.001Z" />
                 </svg>
-                <span> / </span>
+                <span> ／ </span>
                 <span>UI -
                         <a class="font-medium text-blue-400 hover:text-blue-500 hover:underline"
                            href="https://vrchat.com/home/user/usr_0e9c75fa-ec70-4043-9fca-264c9e0af6ba">Oniya</a>
                     </span>
-                <span> / </span>
+                <span> ／ </span>
                 <span>Backend & hosting -
                         <a class="font-medium text-blue-400 hover:text-blue-500 hover:underline"
                            href="https://tun.cat">Tundra</a>
