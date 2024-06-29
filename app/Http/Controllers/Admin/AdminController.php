@@ -78,7 +78,7 @@ class AdminController extends BasicController
                 'id' => $id,
                 'name' => $name,
                 'songs' => $songs_data,
-                'game_score' => $game_score,
+                'game_score' => round($game_score / count($singer_data['songs']), 2),
             ];
         }
         array_multisort(array_column($data, 'game_score'), SORT_DESC, $data);
