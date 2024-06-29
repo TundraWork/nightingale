@@ -18,7 +18,7 @@
         </div>
     </header>
     <main role="main" class="inner cover">
-        <form action="/edit/auth" method="POST">
+        <form action="/admin/auth" method="POST">
             <div class="form-group">
                 <label class="form-label">认证凭据</label>
                 <input type="password" class="form-control" name="token">
