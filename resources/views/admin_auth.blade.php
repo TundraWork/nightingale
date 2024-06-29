@@ -84,14 +84,14 @@
             <div class="grid grid-cols-1 gap-4 lg:grid-cols-1 lg:gap-8">
                 <!-- Auth -->
                 <div class="rounded-2xl bg-gray-900/50 p-5">
-                    <form action="/admin/auth" method="POST">
+                    <form action="/admin/auth" method="POST" class="space-y-4">
                         @csrf
-                        <div class="form-group">
-                            <label class="form-label">认证凭据</label>
-                            <input type="password" class="form-control" name="token">
-                            <div id="emailHelp" class="form-text text-muted">评委/后台人员请联系赛事管理人员获取认证凭据</div>
+                        <div>
+                            <label for="token" class="form-label block text-sm font-medium text-gray-700">认证凭据</label>
+                            <input type="password" id="token" name="token" class="form-control mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                            <div id="emailHelp" class="form-text text-xs text-gray-500">评委/后台人员请联系赛事管理人员获取认证凭据</div>
                         </div>
-                        <button type="submit" class="btn btn-primary">提交</button>
+                        <button type="submit" class="btn btn-primary px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md">提交</button>
                     </form>
                 </div>
                 <!-- END Auth -->
