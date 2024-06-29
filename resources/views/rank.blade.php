@@ -58,7 +58,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="init()">
 <!-- Page Container -->
 <div
     x-data="{ userDropdownOpen: false, mobileNavOpen: false }"
@@ -237,29 +237,33 @@
 
 <!-- Page JS Code -->
 <script>
-    $.ajax({
-        url: "/api/v1/guest/collectAllScores",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            $('#rank1').text(data.data[0].name);
-            $('#rank2').text(data.data[1].name);
-            $('#rank3').text(data.data[2].name);
-            $('#rank4').text(data.data[3].name);
-            $.each(data.data, function(key, value) {
-                var row = $('<tr>').append(
-                    $("<td> class='text-left'>").text(key + 1),
-                    $("<td class='text-center'>").text(value.name),
-                    $("<td class='text-center'>").text(value.songs[0].song),
-                    $("<td class='text-right'>").text(value.game_score + '分')
-                );
-                $('#data-table tbody').append(row);
-            });
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    })
+    function init(){
+        $.ajax({
+            url: "/api/v1/guest/collectAllScores",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $('#rank1').text(data.data[0].name);
+                $('#rank2').text(data.data[1].name);
+                $('#rank3').text(data.data[2].name);
+                $('#rank4').text(data.data[3].name);
+                $.each(data.data, function(key, value) {
+                    var row = $('<tr>').append(
+                        $("<td> class='text-left'>").text(key + 1),
+                        $("<td class='text-center'>").text(value.name),
+                        $("<td class='text-center'>").text(value.songs[0].song),
+                        $("<td class='text-right'>").text(value.game_score + '分')
+                    );
+                    $('#data-table tbody').append(row);
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+        console.log('init');
+    }
+    setInterval(init(), 5000);
 </script>
 </body>
 </html>
