@@ -86,7 +86,7 @@
                         <dt class="text-sm font-semibold uppercase tracking-wider text-gray-400">
                             当前选手：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="player">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="player">暂无</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -94,7 +94,7 @@
                         <dt class="text-sm font-semibold uppercase tracking-wider text-gray-400">
                             属于队伍：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="team">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="team">暂无</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -102,7 +102,7 @@
                         <dt class="text-sm font-semibold uppercase tracking-wider text-gray-400">
                             红队票数：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="vote-count-a">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="vote-count-a">暂无</dd>
                     </dl>
                 </div>
                 <div class="p-5">
@@ -110,7 +110,7 @@
                         <dt class="text-sm font-semibold uppercase tracking-wider text-gray-400">
                             白队票数：
                         </dt>
-                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="vote-count-b">Null</dd>
+                        <dd class="pb-3 pt-2 text-4xl font-semibold" id="vote-count-b">暂无</dd>
                     </dl>
                 </div>
             </div>
@@ -245,8 +245,8 @@
     }
 
     function init() {
-        loadTeams();
         fetchData();
+        loadTeams();
     }
 
     setInterval(function () {
