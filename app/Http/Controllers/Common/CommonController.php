@@ -36,14 +36,16 @@ class CommonController extends BasicController
         $names = $request->input('names');
         $data = [];
         foreach ($names as $name) {
-            $id = uniqid();
-            Redis::hset(self::KEY_SINGERS, $id, $name);
-            $singer_data = [
-                'name' => $name,
-                'songs' => [],
-            ];
-            Redis::set(self::PREFIX_SINGER . $id, json_encode($singer_data));
-            $data[$id] = $name;
+            if (!empty($name)) {
+                $id = uniqid();
+                Redis::hset(self::KEY_SINGERS, $id, $name);
+                $singer_data = [
+                    'name' => $name,
+                    'songs' => [],
+                ];
+                Redis::set(self::PREFIX_SINGER . $id, json_encode($singer_data));
+                $data[$id] = $name;
+            }
         }
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
     }
@@ -78,9 +80,11 @@ class CommonController extends BasicController
         $names = $request->input('names');
         $data = [];
         foreach ($names as $name) {
-            $id = uniqid();
-            Redis::hset(self::KEY_SONGS, $id, $name);
-            $data[$id] = $name;
+            if (!empty($name)) {
+                $id = uniqid();
+                Redis::hset(self::KEY_SONGS, $id, $name);
+                $data[$id] = $name;
+            }
         }
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
     }
