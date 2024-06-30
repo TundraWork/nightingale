@@ -260,7 +260,7 @@
     }
     setInterval(function() {
         init();
-    }, 5000);
+    }, 10000);
 </script>
 </body>
 </html>
