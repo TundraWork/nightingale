@@ -25,7 +25,7 @@ class AuthController
             if ($request->has('token')) {
                 if ($request->input('token') === env('ADMIN_TOKEN', '')) {
                     $session_id = (string)Str::uuid();
-                    Cache::put('user_session_' . $session_id, 1, 3600);
+                    Cache::put('user_session_' . $session_id, 1, 43200);
                     return redirect('/admin/judge')->withCookie(cookie('session', $session_id, 60, '/'));
                 } else {
                     return redirect('/');
