@@ -40,6 +40,8 @@ class AdminAuth
             }
         } elseif ($request->has('token')) {
             if ($request->input('token') === env('ADMIN_TOKEN', '')) {
+                $session_id = (string)Str::uuid();
+                Cache::put('user_session_' . $session_id, 1, 43200);
                 return $next($request);
             } else {
                 return redirect('admin/auth');
