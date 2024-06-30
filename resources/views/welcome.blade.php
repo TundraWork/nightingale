@@ -58,7 +58,7 @@
                 <a href="javascript:void(0)"
                    class="group inline-flex items-center gap-2 text-lg font-bold tracking-wide text-white hover:text-white/90">
                     <svg fill="#2040AA" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 364.59 364.591" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M360.655,258.05V25c0-13.807-11.191-25-25-25H130.09c-13.807,0-25,11.193-25,25v206.27 c-10.569-3.184-22.145-4.271-34.058-2.768C29.527,233.738-0.293,268.3,4.427,305.695c4.719,37.396,42.189,63.464,83.694,58.226 c40.015-5.049,66.969-37.146,66.969-73.181V50h155.564v146.794c-10.591-3.2-22.19-4.297-34.134-2.79 c-41.504,5.237-71.323,39.798-66.604,77.193s42.188,63.464,83.694,58.227C332.951,324.458,360.655,293.275,360.655,258.05z"></path> </g> </g> </g></svg>
-                    <a href="/"><span class="text-xl font-bold hidden sm:inline">我不是歌神 S1</span></a><span class="text-xl ml-2 hidden sm:inline"> - 首页</span>
+                    <a href="/"><span class="text-xl font-bold sm:inline">我不是歌神 S1</span></a><span class="text-xl ml-2 sm:inline"> - 首页</span>
                 </a>
             </div>
             <!-- Left Section -->
@@ -66,11 +66,14 @@
             <!-- Right Section -->
             <div class="flex items-center gap-2">
                 <!-- links to other pages -->
-                <a href="#" class="hidden sm:inline font-medium text-gray-400 hover:text-white">
-                    <span>观众投票</span>
+                <a href="/rank" class="sm:inline font-medium text-gray-400 hover:text-white">
+                    <span>实时分数</span>
                 </a>
-                <a href="/rank" class="hidden sm:inline font-medium text-gray-400 hover:text-white">
+                <a href="/stats" class="sm:inline font-medium text-gray-400 hover:text-white">
                     <span>选手排名</span>
+                </a>
+                <a href="#" class="sm:inline font-medium text-gray-400 hover:text-white">
+                    <span>观众投票</span>
                 </a>
             </div>
             <!-- END Right Section -->
@@ -84,12 +87,16 @@
         <!-- Page Section -->
         <div class="container mx-auto space-y-4 p-4 lg:space-y-8 lg:p-8 xl:max-w-6xl">
             <!-- Details -->
-            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
 
                 <!-- Referrers -->
                 <div class="rounded-2xl bg-gray-900/50 p-5">
+                    <a href="/stats"><button
+                            class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-blue-800">选手实时分数</button></a>
+                </div>
+                <div class="rounded-2xl bg-gray-900/50 p-5">
                     <a href="/rank"><button
-                            class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-blue-800">查看选手排名</button></a>
+                            class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-blue-800">全部选手排名</button></a>
                 </div>
                 <div class="rounded-2xl bg-gray-900/50 p-5">
                     <a href="#"><button

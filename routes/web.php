@@ -13,6 +13,9 @@ Route::get('/rank', function () {
 Route::get('/vote', function () {
     return view('vote');
 });
+Route::get('/stats', function () {
+    return view('stats');
+});
 Route::get('/admin/auth', [AuthController::class, 'gateway']);
 Route::post('/admin/auth', [AuthController::class, 'gateway']);
 Route::group(['prefix' => 'admin', 'middleware' => AdminAuth::class], function () {
