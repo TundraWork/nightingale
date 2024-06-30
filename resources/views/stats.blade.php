@@ -664,8 +664,8 @@
 <script>
     function fetchData() {
         var apiUrls = [
-            '/api/v1/admin/getCurrentStatus',
-            '/api/v1/admin/collectAllScores',
+            '/api/v1/guests/getCurrentStatus',
+            '/api/v1/guests/collectAllScores',
         ];
         $.when.apply($, apiUrls.map(function(url) {
             return $.ajax({
@@ -691,10 +691,10 @@
             var jsonData = "singer_id=" + player_id + "&song_id=" + song_id;
 
             $.ajax({
-                url: "/api/v1/admin/collectScore", // API 的 URL
-                type: "GET", // 请求的类型（GET、POST 等）
-                contentType: "text/plain", // 请求的内容类型
-                data: jsonData, // 要提交的数据
+                url: "/api/v1/guests/collectScore",
+                type: "GET",
+                contentType: "text/plain",
+                data: jsonData,
                 success: function (response) {
                     // 请求成功时执行的回调函数
                     $('#judge-score').text(response.data.final_score + '分');
