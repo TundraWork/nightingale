@@ -28,4 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminAuth::class], function (
     Route::get('/stats', function () {
         return view('admin_stats');
     });
+    Route::get('/rank', function () {
+        return view('admin_rank');
+    });
 });
