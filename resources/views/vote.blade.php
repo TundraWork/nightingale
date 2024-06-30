@@ -66,13 +66,13 @@
             <div class="flex items-center gap-2">
                 <!-- links to other pages -->
                 <a href="/stats" class="sm:inline font-medium text-gray-400 hover:text-white">
-                    <span>实时分数</span>
+                    <span>分数</span>
                 </a>
                 <a href="/rank" class="sm:inline font-medium text-gray-400 hover:text-white">
-                    <span>选手排名</span>
+                    <span>排名</span>
                 </a>
                 <a href="#" class="sm:inline font-medium text-gray-400 hover:text-white">
-                    <span>观众投票</span>
+                    <span>投票</span>
                 </a>
             </div>
             <!-- END Right Section -->
