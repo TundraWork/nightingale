@@ -27,18 +27,23 @@ class GuestsController extends BasicController
                 $songs_data[] = [
                     'id' => $song['song'],
                     'song' => Redis::hget(self::KEY_SONGS, $song['song']),
-                    'final_score' => "应选手要求暂取消公开",
+                    'final_score' => $song['final_score'],
                 ];
             }
             $data[] = [
                 'id' => $id,
                 'name' => $name,
                 'songs' => $songs_data,
-                'game_score' => "应选手要求暂取消公开",
+                'game_score' => count($singer_data['songs']) ? round($game_score / count($singer_data['songs']), 2) : 0,
             ];
         }
         array_multisort(array_column($data, 'game_score'), SORT_DESC, $data);
-        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
+        $redacted_data = [];
+        foreach ($data as $index => $singer) {
+            $singer['game_score'] = "应选手要求暂取消公开";
+            $redacted_data[] = $singer;
+        }
+        return response()->json(['code' => 200, 'message' => 'OK', 'data' => $redacted_data]);
     }
 
     function submitVote(SubmitVote $request)
