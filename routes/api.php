@@ -18,7 +18,7 @@ Route::prefix('v1')->group(function () {
         Route::get('getCurrentStatus', [CommonController::class, 'getCurrentStatus']);
         Route::post('submitVote', [GuestsController::class, 'submitVote']);
         Route::get('collectScore', [AdminController::class, 'collectScore']);
-        Route::get('collectAllScores', [AdminController::class, 'collectAllScores']);
+        Route::get('collectAllScores', [GuestsController::class, 'collectAllScores']);
         Route::get('collectAllVotes', [AdminController::class, 'collectAllVotes']);
     });
     Route::prefix('admin')->namespace('Admin')->middleware(AdminAuth::class)->group(function () {
