@@ -431,7 +431,7 @@
                         <thead>
                         <tr>
                             <th class="p-2 text-left font-medium text-gray-400">
-                                月初的雪评委
+                                Doka评委
                             </th>
                             <th class="p-2 text-right font-medium text-gray-400">
                                 分数
@@ -702,7 +702,7 @@
                         '๑0w0๑': 'ling',
                         '悟我': 'wuwo',
                         'Annie': 'annie',
-                        '月初的雪': 'yue',
+                        'Doka': 'yue',
                         'Oniya': 'oniya'
                     };
 

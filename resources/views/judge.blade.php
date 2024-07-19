@@ -172,7 +172,7 @@
             <option value="๑0w0๑">๑0w0๑</option>
             <option value="悟我">悟我</option>
             <option value="Annie">Annie</option>
-            <option value="月初的雪">月初的雪</option>
+            <option value="Doka">Doka</option>
             <option value="Oniya">Oniya</option>
         </select>
     </div>
