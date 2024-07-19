@@ -31,4 +31,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminAuth::class], function (
     Route::get('/rank', function () {
         return view('admin_rank');
     });
+    Route::get('/vote', function () {
+        return view('admin_vote');
+    });
 });

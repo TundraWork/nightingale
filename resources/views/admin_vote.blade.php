@@ -250,9 +250,7 @@
             if (allData[0].data.team == null) {
                 $('#team').text('暂无');
             } else {
-                // do not display realtime votes
-                //$('#team').text(allData[0].data.team);
-                $('#team').text('赛后公布');
+                $('#team').text(allData[0].data.team);
             };
             $('#vote-count-a').text(allData[1].data[0].total_votes);
             $('#vote-count-b').text(allData[1].data[1].total_votes);

@@ -89,7 +89,7 @@
                 <a href="/rank" class="sm:inline font-medium text-gray-400 hover:text-white">
                     <span>排名</span>
                 </a>
-                <a href="#" class="sm:inline font-medium text-gray-400 hover:text-white">
+                <a href="/vote" class="sm:inline font-medium text-gray-400 hover:text-white">
                     <span>投票</span>
                 </a>
             </div>

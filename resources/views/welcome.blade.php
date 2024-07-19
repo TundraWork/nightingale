@@ -72,7 +72,7 @@
                 <a href="/rank" class="sm:inline font-medium text-gray-400 hover:text-white">
                     <span>排名</span>
                 </a>
-                <a href="#" class="sm:inline font-medium text-gray-400 hover:text-white">
+                <a href="/vote" class="sm:inline font-medium text-gray-400 hover:text-white">
                     <span>投票</span>
                 </a>
             </div>
@@ -99,8 +99,8 @@
                             class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-blue-800">全部选手排名</button></a>
                 </div>
                 <div class="rounded-2xl bg-gray-900/50 p-5">
-                    <a href="#"><button
-                            class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800" disabled>参与观众投票（第二场开放）</button></a>
+                    <a href="/vote"><button
+                            class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800" disabled>参与观众投票</button></a>
                 </div>
                 <!-- END Referrers -->
             </div>
