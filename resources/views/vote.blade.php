@@ -250,12 +250,13 @@
             if (allData[0].data.team == null) {
                 $('#team').text('暂无');
             } else {
-                // do not display realtime votes
-                //$('#team').text(allData[0].data.team);
-                $('#team').text('赛后公布');
-            };
-            $('#vote-count-a').text(allData[1].data[0].total_votes);
-            $('#vote-count-b').text(allData[1].data[1].total_votes);
+                $('#team').text(allData[0].data.team);
+            }
+            // do not display realtime votes
+            //$('#vote-count-a').text(allData[1].data[0].total_votes);
+            //$('#vote-count-b').text(allData[1].data[1].total_votes);
+            $('#vote-count-a').text('赛后公布');
+            $('#vote-count-b').text('赛后公布');
             let vote_button = $('#vote-button');
             if (singer_id === localStorage.getItem('voted_singer_id')) {
                 vote_button.text('已投票');

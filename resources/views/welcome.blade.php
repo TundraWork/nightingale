@@ -100,7 +100,7 @@
                 </div>
                 <div class="rounded-2xl bg-gray-900/50 p-5">
                     <a href="/vote"><button
-                            class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800" disabled>参与观众投票</button></a>
+                            class="w-full h-16 bg-gray-700 text-white font-bold rounded-lg shadow hover:bg-red-800">参与观众投票</button></a>
                 </div>
                 <!-- END Referrers -->
             </div>
