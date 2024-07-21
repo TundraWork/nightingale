@@ -4,33 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BasicController;
 use App\Http\Requests\Admin\CollectScore;
-use App\Http\Requests\Admin\SetCurrentStatus;
 use Illuminate\Support\Facades\Redis;
 
 class AdminController extends BasicController
 {
-    function setCurrentStatus(SetCurrentStatus $request)
-    {
-        $singer_id = $request->input('singer_id');
-        $song_id = $request->input('song_id');
-        $team_id = $request->input('team_id');
-        if (!empty($singer_id) && !Redis::hexists(self::KEY_SINGERS, $singer_id)) {
-            return response()->json(['code' => 400, 'message' => 'Singer not found'], 400);
-        }
-        if (!empty($song_id) && !Redis::hexists(self::KEY_SONGS, $song_id)) {
-            return response()->json(['code' => 400, 'message' => 'Song not found'], 400);
-        }
-        if (!empty($team_id) && !Redis::hexists(self::KEY_TEAMS, $team_id)) {
-            return response()->json(['code' => 400, 'message' => 'Team not found'], 400);
-        }
-        Redis::set(self::KEY_CURRENT_STATUS, json_encode([
-            'singer_id' => $singer_id,
-            'song_id' => $song_id,
-            'team_id' => $team_id,
-        ]));
-        return response()->json(['code' => 200, 'message' => 'Current status set successfully']);
-    }
-
     function collectScore(CollectScore $request)
     {
         $singer_id = $request->input('singer_id');
@@ -83,6 +60,34 @@ class AdminController extends BasicController
         }
         array_multisort(array_column($data, 'game_score'), SORT_DESC, $data);
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
+    }
+
+    function switchVoteOpen()
+    {
+        $vote_open = Redis::get(self::KEY_VOTE_OPEN);
+        if ($vote_open) {
+            Redis::set(self::KEY_VOTE_OPEN, 0);
+            return response()->json(['code' => 200, 'message' => 'Voting closed']);
+        } else {
+            Redis::set(self::KEY_VOTE_OPEN, 1);
+            return response()->json(['code' => 200, 'message' => 'Voting opened']);
+        }
+    }
+
+    function clearAllVotes()
+    {
+        $teams = Redis::hgetall(self::KEY_TEAMS);
+        foreach ($teams as $id => $name) {
+            $team_data = Redis::get(self::PREFIX_TEAM . $id);
+            if (!$team_data) {
+                continue;
+            }
+            $team_data = json_decode($team_data, true);
+            $team_data['votes'] = [];
+            $team_data['total_votes'] = 0;
+            Redis::set(self::PREFIX_TEAM . $id, json_encode($team_data));
+        }
+        return response()->json(['code' => 200, 'message' => 'OK']);
     }
 
     function collectAllVotes()

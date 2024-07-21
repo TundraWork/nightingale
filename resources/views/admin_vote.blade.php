@@ -207,7 +207,7 @@
 
     function loadTeams() {
         $.ajax({
-            url: "/api/v1/guests/getCurrentStatus",
+            url: "/api/v1/admin/getCurrentStatus",
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -230,8 +230,8 @@
 
     function fetchData() {
         var apiUrls = [
-            '/api/v1/guests/getCurrentStatus',
-            '/api/v1/guests/collectAllVotes',
+            '/api/v1/admin/getCurrentStatus',
+            '/api/v1/admin/collectAllVotes',
         ];
         $.when.apply($, apiUrls.map(function (url) {
             return $.ajax({
@@ -251,7 +251,7 @@
                 $('#team').text('暂无');
             } else {
                 $('#team').text(allData[0].data.team);
-            };
+            }
             $('#vote-count-a').text(allData[1].data[0].total_votes);
             $('#vote-count-b').text(allData[1].data[1].total_votes);
             let vote_button = $('#vote-button');

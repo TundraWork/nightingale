@@ -47,6 +47,7 @@ abstract class BasicController
     const KEY_TEAMS = 'teams';
     const PREFIX_TEAM = 'team_';
     const KEY_CURRENT_STATUS = 'current_status';
+    const KEY_VOTE_OPEN = 'vote_open';
     const SCORE_ITEMS = [
         'A' => 0.3, // 音准
         'B' => 0.2, // 音色

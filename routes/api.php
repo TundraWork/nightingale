@@ -17,25 +17,31 @@ Route::prefix('v1')->group(function () {
         Route::get('getTeams', [CommonController::class, 'getTeams']);
         Route::get('getCurrentStatus', [CommonController::class, 'getCurrentStatus']);
         Route::post('submitVote', [GuestsController::class, 'submitVote']);
-        Route::get('collectScore', [AdminController::class, 'collectScore']);
+        Route::get('collectScore', [GuestsController::class, 'collectScore']);
         Route::get('collectAllScores', [GuestsController::class, 'collectAllScores']);
-        Route::get('collectAllVotes', [AdminController::class, 'collectAllVotes']);
+        Route::get('collectAllVotes', [GuestsController::class, 'collectAllVotes']);
     });
     Route::prefix('admin')->namespace('Admin')->middleware(AdminAuth::class)->group(function () {
         Route::post('clearSingers', [CommonController::class, 'clearSingers']);
         Route::post('addSingers', [CommonController::class, 'addSingers']);
         Route::get('getSingers', [CommonController::class, 'getSingers']);
+
         Route::post('clearSongs', [CommonController::class, 'clearSongs']);
         Route::post('addSongs', [CommonController::class, 'addSongs']);
         Route::get('getSongs', [CommonController::class, 'getSongs']);
+
         Route::post('clearTeams', [CommonController::class, 'clearTeams']);
         Route::post('addTeams', [CommonController::class, 'addTeams']);
         Route::get('getTeams', [CommonController::class, 'getTeams']);
 
-        Route::post('setCurrentStatus', [AdminController::class, 'setCurrentStatus']);
+        Route::post('setCurrentStatus', [CommonController::class, 'setCurrentStatus']);
         Route::get('getCurrentStatus', [CommonController::class, 'getCurrentStatus']);
+
         Route::get('collectScore', [AdminController::class, 'collectScore']);
         Route::get('collectAllScores', [AdminController::class, 'collectAllScores']);
+
+        Route::post('switchVoteOpen', [AdminController::class, 'switchVoteOpen']);
+        Route::post('clearAllVotes', [AdminController::class, 'clearAllVotes']);
         Route::get('collectAllVotes', [AdminController::class, 'collectAllVotes']);
     });
     Route::any('{any}', function(){

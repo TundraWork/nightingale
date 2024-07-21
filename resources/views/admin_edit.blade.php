@@ -158,12 +158,21 @@
         <input type="text" name="text" id="addteam" placeholder="支持批量添加，请用英文逗号分离">
     </div>
 
-    <button class="button button1" onclick="submit()" id="button1">设定歌曲/歌手/战队</button>
-    <button class="button button2" onclick="add()" id="button2">添加歌曲或歌手</button>
-    <button class="button button2" onclick="addTeams()" id="button2">添加战队</button>
-    <button class="button button3" onclick="del()" id="button3">删除歌曲或歌手</button>
-    <button class="button button4" onclick="delAll()" id="button4">删除全部歌曲或歌手</button>
-    <button class="button button4" onclick="delTeams()" id="button4">删除全部战队</button>
+    <div class="input-group">
+        <button class="button button1" onclick="submit()" id="button1">设定歌曲/歌手/战队</button>
+    </div>
+    <div class="input-group">
+        <button class="button button2" onclick="add()" id="button2">添加歌曲或歌手</button>
+        <button class="button button2" onclick="addTeams()" id="button2">添加战队</button>
+    </div>
+    <div class="input-group">
+        <button class="button button3" onclick="del()" id="button3">删除歌曲或歌手</button>
+        <button class="button button4" onclick="delAll()" id="button4">删除全部歌曲或歌手</button>
+        <button class="button button4" onclick="delTeams()" id="button4">删除全部战队</button>
+    </div>
+    <div class="input-group">
+        <button class="button button1" onclick="switchVoteOpen()" id="button1">切换投票开关</button>
+    </div>
 </div>
 
 <script>
@@ -320,12 +329,13 @@
             data: JSON.stringify(teamsjsonData),
             success: function (data) {
                 console.log(data);
+                alert("添加成功");
             },
             error: function (error) {
                 console.error('Error:', error);
+                alert("添加失败：" + error.responseJSON.message);
             }
         })
-        alert("添加成功");
     }
 
     function del() {
@@ -429,6 +439,22 @@
                 console.log("删除操作已取消");
             }
         });
+    }
+
+    function switchVoteOpen() {
+        $.ajax({
+            url: '/api/v1/admin/switchVoteOpen',
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                console.log(data);
+                alert("投票开关已切换：" + data.data);
+            },
+            error: function (error) {
+                console.error('Error:', error);
+                alert("投票开关切换失败：" + error.responseJSON.message);
+            }
+        })
     }
 </script>
 </body>
