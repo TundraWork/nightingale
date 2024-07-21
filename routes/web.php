@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/rank', function () {
-    return view('rank');
-});
+//Route::get('/rank', function () {
+//    return view('rank');
+//});
 Route::get('/vote', function () {
     return view('vote');
 });
