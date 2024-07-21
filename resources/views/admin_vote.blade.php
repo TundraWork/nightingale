@@ -200,7 +200,7 @@
                 localStorage.setItem('voted_singer_id', singer_id);
             },
             error: function (response) {
-                alert('投票失败！' + response.responseJSON.message);
+                alert('投票失败！' + response.message);
             }
         })
     });

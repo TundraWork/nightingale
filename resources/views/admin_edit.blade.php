@@ -333,7 +333,7 @@
             },
             error: function (error) {
                 console.error('Error:', error);
-                alert("添加失败：" + error.responseJSON.message);
+                alert("添加失败：" + error.message);
             }
         })
     }
@@ -448,11 +448,11 @@
             contentType: 'application/json',
             success: function (data) {
                 console.log(data);
-                alert("投票开关已切换：" + data.data);
+                alert("投票开关已切换：" + data.message);
             },
             error: function (error) {
                 console.error('Error:', error);
-                alert("投票开关切换失败：" + error.responseJSON.message);
+                alert("投票开关切换失败：" + error.message);
             }
         })
     }
