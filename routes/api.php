@@ -41,6 +41,8 @@ Route::prefix('v1')->group(function () {
         Route::get('collectAllScores', [AdminController::class, 'collectAllScores']);
 
         Route::post('switchVoteOpen', [AdminController::class, 'switchVoteOpen']);
+        Route::post('switchVoteDisplay', [AdminController::class, 'switchVoteDisplay']);
+        Route::post('submitVote', [AdminController::class, 'submitVote']);
         Route::post('clearAllVotes', [AdminController::class, 'clearAllVotes']);
         Route::get('collectAllVotes', [AdminController::class, 'collectAllVotes']);
     });

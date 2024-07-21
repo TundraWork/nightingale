@@ -72,18 +72,18 @@ class GuestsController extends BasicController
     {
         $vote_open = Redis::get(self::KEY_VOTE_OPEN);
         if (!$vote_open) {
-            return response()->json(['code' => 403, 'message' => 'Voting is not open'], 403);
+            return response()->json(['code' => 403, 'message' => '投票未开放/已结束'], 403);
         }
         $guest_id = $request->input('guest_id');
         $singer_id = $request->input('singer_id');
         $team_id = $request->input('team_id');
         $team_data = Redis::get(self::PREFIX_TEAM . $team_id);
         if (!$team_data) {
-            return response()->json(['code' => 404, 'message' => 'Team not found'], 404);
+            return response()->json(['code' => 404, 'message' => '无效队伍'], 404);
         }
         $team_data = json_decode($team_data, true);
         if (array_key_exists($singer_id, $team_data['votes']) && array_key_exists($guest_id, $team_data['votes'][$singer_id])) {
-            return response()->json(['code' => 400, 'message' => 'Guest has already voted'], 400);
+            return response()->json(['code' => 400, 'message' => '您已为此歌手投票'], 400);
         }
         $team_data['votes'][$singer_id][$guest_id] = $team_id;
         $team_data['total_votes']++;
@@ -101,12 +101,22 @@ class GuestsController extends BasicController
                 continue;
             }
             $team_data = json_decode($team_data, true);
-            $data[] = [
-                'id' => $id,
-                'name' => $name,
-                'votes' => [],
-                'total_votes' => '赛后公布',
-            ];
+            $vote_display = Redis::get(self::KEY_VOTE_DISPLAY);
+            if (!$vote_display) {
+                $data[] = [
+                    'id' => $id,
+                    'name' => $name,
+                    'votes' => [],
+                    'total_votes' => '赛后公布',
+                ];
+            } else {
+                $data[] = [
+                    'id' => $id,
+                    'name' => $name,
+                    'votes' => $team_data['votes'],
+                    'total_votes' => $team_data['total_votes'],
+                ];
+            }
         }
         return response()->json(['code' => 200, 'message' => 'OK', 'data' => $data]);
     }

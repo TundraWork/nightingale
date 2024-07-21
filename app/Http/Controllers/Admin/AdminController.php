@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BasicController;
 use App\Http\Requests\Admin\CollectScore;
+use App\Http\Requests\Guests\SubmitVote;
 use Illuminate\Support\Facades\Redis;
 
 class AdminController extends BasicController
@@ -72,6 +73,41 @@ class AdminController extends BasicController
             Redis::set(self::KEY_VOTE_OPEN, 1);
             return response()->json(['code' => 200, 'message' => 'Voting opened']);
         }
+    }
+
+    function switchVoteDisplay()
+    {
+        $vote_open = Redis::get(self::KEY_VOTE_DISPLAY);
+        if ($vote_open) {
+            Redis::set(self::KEY_VOTE_DISPLAY, 0);
+            return response()->json(['code' => 200, 'message' => 'Voting result display disabled']);
+        } else {
+            Redis::set(self::KEY_VOTE_DISPLAY, 1);
+            return response()->json(['code' => 200, 'message' => 'Voting result display enabled']);
+        }
+    }
+
+    function submitVote(SubmitVote $request)
+    {
+        $vote_open = Redis::get(self::KEY_VOTE_OPEN);
+        if (!$vote_open) {
+            return response()->json(['code' => 403, 'message' => '投票未开放/已结束'], 403);
+        }
+        $guest_id = $request->input('guest_id');
+        $singer_id = $request->input('singer_id');
+        $team_id = $request->input('team_id');
+        $team_data = Redis::get(self::PREFIX_TEAM . $team_id);
+        if (!$team_data) {
+            return response()->json(['code' => 404, 'message' => '无效队伍'], 404);
+        }
+        $team_data = json_decode($team_data, true);
+        if (array_key_exists($singer_id, $team_data['votes']) && array_key_exists($guest_id, $team_data['votes'][$singer_id])) {
+            return response()->json(['code' => 400, 'message' => '您已为此歌手投票'], 400);
+        }
+        $team_data['votes'][$singer_id][$guest_id] = $team_id;
+        $team_data['total_votes']++;
+        Redis::set(self::PREFIX_TEAM . $team_id, json_encode($team_data));
+        return response()->json(['code' => 200, 'message' => 'Vote submitted successfully']);
     }
 
     function clearAllVotes()

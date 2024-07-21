@@ -199,8 +199,8 @@
                 $('#vote-button').prop("disabled", true);
                 localStorage.setItem('voted_singer_id', singer_id);
             },
-            error: function (response) {
-                alert('投票失败！' + response.message);
+            error: function (error) {
+                alert('投票失败！' + error.responseJSON.message);
             }
         })
     });

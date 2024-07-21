@@ -189,7 +189,7 @@
 
     $(document).on('click', '#vote-button', function () {
         $.ajax({
-            url: '/api/v1/guests/submitVote',
+            url: '/api/v1/admin/submitVote',
             type: 'POST',
             contentType: "application/json", // 请求的内容类型
             data: JSON.stringify({ "singer_id": singer_id, "team_id": team_id }), // 要提交的数据
@@ -199,8 +199,8 @@
                 $('#vote-button').prop("disabled", true);
                 localStorage.setItem('voted_singer_id', singer_id);
             },
-            error: function (response) {
-                alert('投票失败！' + response.message);
+            error: function (error) {
+                alert('投票失败！' + error.responseJSON.message);
             }
         })
     });

@@ -172,6 +172,7 @@
     </div>
     <div class="input-group">
         <button class="button button1" onclick="switchVoteOpen()" id="button1">切换投票开关</button>
+        <button class="button button1" onclick="switchVoteDisplay()" id="button1">切换投票结果显示</button>
     </div>
 </div>
 
@@ -250,11 +251,12 @@
                     "team_id": team
                 }),
                 success: function (data) {
-                    alert("设置成功");
                     console.log(data);
+                    alert("设置成功");
                 },
                 error: function (error) {
                     console.error('Error:', error);
+                    alert("设置失败：" + error.responseJSON.message);
                 }
             });
         }
@@ -291,6 +293,7 @@
             },
             error: function (error) {
                 console.error('Error:', error);
+                alert("添加失败：" + error.responseJSON.message);
             }
         })
         $.ajax({
@@ -303,9 +306,10 @@
             },
             error: function (error) {
                 console.error('Error:', error);
+                alert("添加失败：" + error.responseJSON.message);
             }
         })
-        alert("添加成功");
+        alert("添加操作完成");
     }
 
     function addTeams() {
@@ -333,7 +337,7 @@
             },
             error: function (error) {
                 console.error('Error:', error);
-                alert("添加失败：" + error.message);
+                alert("添加失败：" + error.responseJSON.message);
             }
         })
     }
@@ -371,6 +375,7 @@
                 },
                 error: function (error) {
                     console.error('Error:', error);
+                    alert("删除失败：" + error.responseJSON.message);
                 }
             })
         }
@@ -385,10 +390,11 @@
                 },
                 error: function (error) {
                     console.error('Error:', error);
+                    alert("删除失败：" + error.responseJSON.message);
                 }
             })
         }
-        alert("删除成功");
+        alert("删除操作结束");
     }
 
     function delAll() {
@@ -403,6 +409,7 @@
                         console.log(data);
                     }, error: function (error) {
                         console.error('Error:', error);
+                        alert("删除失败：" + error.responseJSON.message);
                     }
                 })
                 $.ajax({
@@ -411,8 +418,10 @@
                     contentType: 'application/json',
                     success: function (data) {
                         console.log(data);
+                        alert("删除成功");
                     }, error: function (error) {
                         console.error('Error:', error);
+                        alert("删除失败：" + error.responseJSON.message);
                     }
                 })
             } else {
@@ -431,8 +440,10 @@
                     contentType: 'application/json',
                     success: function (data) {
                         console.log(data);
+                        alert("删除成功");
                     }, error: function (error) {
                         console.error('Error:', error);
+                        alert("删除失败：" + error.responseJSON.message);
                     }
                 })
             } else {
@@ -452,7 +463,23 @@
             },
             error: function (error) {
                 console.error('Error:', error);
-                alert("投票开关切换失败：" + error.message);
+                alert("投票开关切换失败：" + error.responseJSON.message);
+            }
+        })
+    }
+
+    function switchVoteDisplay() {
+        $.ajax({
+            url: '/api/v1/admin/switchVoteDisplay',
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                console.log(data);
+                alert("投票结果显示已切换：" + data.message);
+            },
+            error: function (error) {
+                console.error('Error:', error);
+                alert("投票结果显示切换失败：" + error.responseJSON.message);
             }
         })
     }
